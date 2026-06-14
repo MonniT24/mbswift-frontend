@@ -6130,15 +6130,15 @@ user?.status !== "busy" && (
               fontSize:"30px"
             }}
           >
-            {
-              getRiderDisplayStatus() === "busy"
-              ? "Busy"
-              : getRiderDisplayStatus() === "offline"
-              ? "Off"
-              : getRiderDisplayStatus() === "suspended"
-              ? "Stop"
-              : "Live"
-            }
+           {
+  getRiderDisplayStatus() === "busy"
+  ? "Busy on delivery"
+  : getRiderDisplayStatus() === "offline"
+  ? "Offline"
+  : getRiderDisplayStatus() === "suspended"
+  ? "Suspended"
+  : "Available for orders"
+}
           </strong>
 
           <span>
@@ -6239,18 +6239,23 @@ user?.status !== "busy" && (
             display:"inline-flex",
             padding:"8px 14px",
             borderRadius:"999px",
-            background:
-              getRiderDisplayStatus() === "busy"
-              ? "#fee2e2"
-              : getRiderDisplayStatus() === "suspended"
-              ? "#fee2e2"
-              : "#dcfce7",
-            color:
-              getRiderDisplayStatus() === "busy"
-              ? "#991b1b"
-              : getRiderDisplayStatus() === "suspended"
-              ? "#991b1b"
-              : "#166534",
+           background:
+  getRiderDisplayStatus() === "busy"
+  ? "#fee2e2"
+  : getRiderDisplayStatus() === "offline"
+  ? "#e2e8f0"
+  : getRiderDisplayStatus() === "suspended"
+  ? "#fee2e2"
+  : "#dcfce7",
+
+color:
+  getRiderDisplayStatus() === "busy"
+  ? "#991b1b"
+  : getRiderDisplayStatus() === "offline"
+  ? "#475569"
+  : getRiderDisplayStatus() === "suspended"
+  ? "#991b1b"
+  : "#166534",
             fontSize:"12px",
             fontWeight:"900",
             marginBottom:"18px",
