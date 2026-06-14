@@ -1153,7 +1153,10 @@ useEffect(()=>{
     new Audio("/sounds/new-order.mp3");
 
   newOrderAudioRef.current.volume =
-    1;
+  1;
+
+  newOrderAudioRef.current.loop =
+  true;
 
 },[]);
 
@@ -2073,12 +2076,12 @@ async function acceptOrder(orderId){
 
     if(riderIsBlocked){
 
-  alert(
-    riderBlockedMessage
-  );
+      alert(
+        riderBlockedMessage
+      );
 
-  return;
-}
+      return;
+    }
 
     if(!user){
 
@@ -2090,24 +2093,24 @@ async function acceptOrder(orderId){
     if(activeOrders.length > 0){
 
       if(
-  !user.dob ||
-  !user.emergencyContact ||
-  !user.motorNumber ||
-  !user.idType ||
-  !user.idNumber ||
-  !user.profileImage
-){
+        !user.dob ||
+        !user.emergencyContact ||
+        !user.motorNumber ||
+        !user.idType ||
+        !user.idNumber ||
+        !user.profileImage
+      ){
 
-  alert(
-    "Please complete your rider profile before accepting deliveries."
-  );
+        alert(
+          "Please complete your rider profile before accepting deliveries."
+        );
 
-  setActiveSection(
-    "profile"
-  );
+        setActiveSection(
+          "profile"
+        );
 
-  return;
-}
+        return;
+      }
 
       alert(
         "You already have an active delivery. Complete it before accepting another order."
@@ -2144,52 +2147,58 @@ async function acceptOrder(orderId){
       return;
     }
 
-   const acceptedOrder =
-  orders.find(
-    (order)=>order._id === orderId
-  );
+    const acceptedOrder =
+      orders.find(
+        (order)=>order._id === orderId
+      );
 
-setOrders(
-  orders.map((order)=>
-    order._id === orderId
-    ? {
-        ...order,
+    setOrders(
+      orders.map((order)=>
+        order._id === orderId
+        ? {
+            ...order,
+            rider:user._id,
+            riderId:user._id,
+            status:"accepted"
+          }
+        : order
+      )
+    );
+
+    if(acceptedOrder){
+
+      setActiveOrders([
+        ...activeOrders,
+        {
+          ...acceptedOrder,
+          rider:user._id,
+          riderId:user._id,
+          status:"accepted"
+        }
+      ]);
+    }
+
+    setUser({
+      ...user,
+      status:"busy"
+    });
+
+    await API.put(
+      `/orders/${orderId}`,
+      {
         rider:user._id,
         riderId:user._id,
         status:"accepted"
       }
-    : order
-  )
-);
+    );
 
-if(acceptedOrder){
-
-  setActiveOrders([
-    ...activeOrders,
-    {
-      ...acceptedOrder,
-      rider:user._id,
-      riderId:user._id,
-      status:"accepted"
+    if(newOrderAudioRef.current){
+      newOrderAudioRef.current.pause();
+      newOrderAudioRef.current.currentTime =
+        0;
     }
-  ]);
-}
 
-setUser({
-  ...user,
-  status:"busy"
-});
-
-await API.put(
-  `/orders/${orderId}`,
-  {
-    rider:user._id,
-    riderId:user._id,
-    status:"accepted"
-  }
-);
-
-fetchOrders();
+    fetchOrders();
 
   }catch(err){
 
@@ -2199,9 +2208,7 @@ fetchOrders();
   }
 }
 
-async function sendMessage(
-  orderId
-){
+async function sendMessage(orderId){
 
   try{
 
@@ -2238,29 +2245,33 @@ async function sendMessage(
   }
 }
 
-  //REJECT
+  // REJECT
 
- async function rejectOrder(orderId){
+async function rejectOrder(orderId){
 
   try{
 
     if(riderIsBlocked){
 
-  alert(
-    riderBlockedMessage
-  );
+      alert(
+        riderBlockedMessage
+      );
 
-  return;
-}
+      return;
+    }
 
     await API.put(
-
       `/orders/${orderId}`,
-
       {
         status:"cancelled"
       }
     );
+
+    if(newOrderAudioRef.current){
+      newOrderAudioRef.current.pause();
+      newOrderAudioRef.current.currentTime =
+        0;
+    }
 
     alert(
       "Order cancelled successfully"
@@ -2268,19 +2279,19 @@ async function sendMessage(
 
     setTimeout(()=>{
 
-  fetchOrders();
+      fetchOrders();
 
-},800);
+    },800);
 
   }catch(err){
 
     console.log(err);
 
-   alert(
-  JSON.stringify(
-    err.response?.data || err.message
-  )
-);
+    alert(
+      JSON.stringify(
+        err.response?.data || err.message
+      )
+    );
   }
 }
 
