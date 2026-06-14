@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useEffect,useState,useRef} from "react";
 
 import styled from "styled-components";
 
@@ -1141,16 +1141,76 @@ const [riderProfileEditing,setRiderProfileEditing] =
 const [orders, setOrders] =
   useState([]);
 
+  const newOrderAudioRef =
+  useRef(null);
+
+const riderSoundUnlockedRef =
+  useRef(false);
+
+useEffect(()=>{
+
+  newOrderAudioRef.current =
+    new Audio("/sounds/new-order.mp3");
+
+  newOrderAudioRef.current.volume =
+    1;
+
+},[]);
+
+
+useEffect(()=>{
+
+  function unlockRiderSound(){
+
+    if(
+      riderSoundUnlockedRef.current ||
+      !newOrderAudioRef.current
+    ){
+      return;
+    }
+
+    newOrderAudioRef.current
+      .play()
+      .then(()=>{
+
+        newOrderAudioRef.current.pause();
+
+        newOrderAudioRef.current.currentTime =
+          0;
+
+        riderSoundUnlockedRef.current =
+          true;
+
+        console.log("Rider sound unlocked");
+      })
+      .catch(()=>{
+        console.log("Tap again to unlock rider sound");
+      });
+  }
+
+  window.addEventListener("click", unlockRiderSound);
+  window.addEventListener("touchstart", unlockRiderSound);
+
+  return ()=>{
+    window.removeEventListener("click", unlockRiderSound);
+    window.removeEventListener("touchstart", unlockRiderSound);
+  };
+
+},[]);
+
+
 useEffect(()=>{
 
   function playNewOrderSound(){
 
-    const audio =
-      new Audio("/sounds/new-order.mp3");
+    if(!newOrderAudioRef.current){
+      return;
+    }
 
-    audio.volume = 1;
+    newOrderAudioRef.current.currentTime =
+      0;
 
-    audio.play().catch(()=>{
+    newOrderAudioRef.current.play().catch(()=>{
       console.log(
         "Sound blocked until rider taps the page first"
       );
@@ -1188,18 +1248,18 @@ useEffect(()=>{
   }
 
   socket.on(
-    "newOrderForRiders",
+    "newOrderAlert",
     handleNewOrder
   );
 
   return ()=>{
     socket.off(
-      "newOrderForRiders",
+      "newOrderAlert",
       handleNewOrder
     );
   };
 
-},[]);  
+},[]); 
 
   const riderProfileCompleted =
   Boolean(
