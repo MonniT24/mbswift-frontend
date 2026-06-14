@@ -3276,10 +3276,14 @@ const res =
         }}
       >
         {
-          getRiderDisplayStatus() === "busy"
-          ? "Busy on delivery"
-          : "Available for orders"
-        }
+  getRiderDisplayStatus() === "busy"
+  ? "Busy on delivery"
+  : getRiderDisplayStatus() === "offline"
+  ? "Offline"
+  : getRiderDisplayStatus() === "suspended"
+  ? "Suspended"
+  : "Available for orders"
+}
       </div>
 
     </div>
@@ -6356,31 +6360,30 @@ color:
   }}
 />
 
-        <Button
-          style={{
-            background:
-              riderAvailability === "online"
-              ? "#dc2626"
-              : "#16a34a",
-            color:"white",
-            fontWeight:"900",
-            borderRadius:"14px"
-          }}
-          onClick={()=>{
-
-            setRiderAvailability(
-              riderAvailability === "online"
-              ? "offline"
-              : "online"
-            );
-          }}
-        >
-          {
-            riderAvailability === "online"
-            ? "Go Offline"
-            : "Go Online"
-          }
-        </Button>
+       <Button
+  style={{
+    background:
+      getRiderDisplayStatus() === "offline"
+      ? "#16a34a"
+      : "#dc2626",
+    color:"white",
+    fontWeight:"900",
+    borderRadius:"14px"
+  }}
+  onClick={()=>
+    updateAvailability(
+      getRiderDisplayStatus() === "offline"
+      ? "available"
+      : "offline"
+    )
+  }
+>
+  {
+    getRiderDisplayStatus() === "offline"
+    ? "Go Online"
+    : "Go Offline"
+  }
+</Button>
 
       </OrderCard>
 
@@ -6626,10 +6629,14 @@ color:
               }}
             >
               {
-                riderAvailability === "online"
-                ? "Online 🟢"
-                : "Offline 🔴"
-              }
+  getRiderDisplayStatus() === "offline"
+  ? "Offline ⚫"
+  : getRiderDisplayStatus() === "busy"
+  ? "Busy 🔴"
+  : getRiderDisplayStatus() === "suspended"
+  ? "Suspended ⛔"
+  : "Online 🟢"
+}
             </div>
           </div>
 
