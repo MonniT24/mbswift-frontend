@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">MB Swift</string>
+    <string name="title_activity_main">MB Swift</string>
+    <string name="package_name">com.mbswift.delivery</string>
+    <string name="custom_url_scheme">com.mbswift.delivery</string>
+</resources>
