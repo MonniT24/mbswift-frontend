@@ -1,5 +1,7 @@
 import React from "react";
 
+import { FiMessageCircle } from "react-icons/fi";
+
 export default function CustomerMessages({
   messageInbox
 }) {
@@ -35,6 +37,7 @@ export default function CustomerMessages({
               display:"inline-flex",
               alignItems:"center",
               justifyContent:"center",
+              gap:"8px",
               padding:"8px 14px",
               borderRadius:"999px",
               background:"rgba(250,204,21,0.18)",
@@ -45,7 +48,8 @@ export default function CustomerMessages({
               marginBottom:"14px"
             }}
           >
-            💬 Rider Communication
+            <FiMessageCircle />
+            Rider Communication
           </div>
 
           <h1
@@ -92,7 +96,7 @@ export default function CustomerMessages({
             boxShadow:"0 14px 30px rgba(15,23,42,0.22)"
           }}
         >
-          💬
+          <FiMessageCircle />
         </div>
       </div>
 
@@ -106,10 +110,15 @@ export default function CustomerMessages({
             fontWeight:"800",
             padding:"28px",
             borderRadius:"18px",
-            textAlign:"center"
+            textAlign:"center",
+            display:"flex",
+            alignItems:"center",
+            justifyContent:"center",
+            gap:"8px"
           }}
         >
-          💬 No messages yet. Chat with your rider when an order is active.
+          <FiMessageCircle />
+          No messages yet. Chat with your rider when an order is active.
         </div>
       ) : (
         <div
@@ -153,7 +162,7 @@ export default function CustomerMessages({
                     boxShadow:"0 10px 22px rgba(29,78,216,0.18)"
                   }}
                 >
-                  💬
+                  <FiMessageCircle />
                 </span>
 
                 <div>

@@ -324,7 +324,7 @@ const {
 
   <div
     style={{
-      marginBottom:"18px",
+      marginBottom:"7px",
       borderRadius:"22px",
       overflow:"hidden",
       border:"1px solid rgba(29,78,216,0.14)",
@@ -370,11 +370,11 @@ const {
             background:"linear-gradient(135deg,#0f172a,#1d4ed8)",
             border:"1px solid rgba(250,204,21,0.30)",
             borderRadius:"20px",
-            padding:"18px",
+            padding:"15px",
             display:"flex",
             justifyContent:"space-between",
             alignItems:"center",
-            marginTop:"18px",
+            marginTop:"16px",
             flexWrap:"wrap",
             gap:"14px",
             boxShadow:"0 12px 28px rgba(29,78,216,0.16)"
@@ -511,7 +511,7 @@ onMouseLeave={(e)=>{
           <h2
             style={{
               fontSize:"24px",
-              marginBottom:"16px",
+              marginBottom:"7px",
               color:"#0f172a",
               display:"flex",
               alignItems:"center",
@@ -521,15 +521,15 @@ onMouseLeave={(e)=>{
           >
             <span
               style={{
-                width:"34px",
-                height:"34px",
+                width:"24px",
+                height:"24px",
                 borderRadius:"12px",
                 display:"inline-flex",
                 alignItems:"center",
                 justifyContent:"center",
                 background:"linear-gradient(135deg,#0f172a,#1d4ed8)",
                 color:"#facc15",
-                fontSize:"18px"
+                fontSize:"14px"
               }}
             >
               <FiPackage />
@@ -615,9 +615,9 @@ function OrderSection({step,title,children}) {
     <div
       style={{
         background:"linear-gradient(135deg,#ffffff,#f8fafc)",
-        borderRadius:"18px",
-        padding:"18px",
-        marginBottom:"16px",
+        borderRadius:"12px",
+        padding:"9px",
+        marginBottom:"10px",
         border:"1px solid rgba(29,78,216,0.10)",
         boxShadow:"0 8px 20px rgba(15,23,42,0.04)"
       }}
@@ -627,13 +627,13 @@ function OrderSection({step,title,children}) {
           display:"flex",
           alignItems:"center",
           gap:"14px",
-          marginBottom:"18px"
+          marginBottom:"10px"
         }}
       >
         <div
           style={{
-            width:"34px",
-            height:"34px",
+            width:"28px",
+            height:"28px",
             borderRadius:"12px",
             background:"linear-gradient(135deg,#0f172a,#1d4ed8)",
             color:"#facc15",
@@ -649,7 +649,7 @@ function OrderSection({step,title,children}) {
 
         <h3
           style={{
-            fontSize:"19px",
+            fontSize:"16px",
             fontWeight:"900",
             color:"#0f172a",
             margin:0
@@ -670,7 +670,7 @@ function Input(props) {
       {...props}
       style={{
         width:"100%",
-        padding:"15px 16px",
+        padding:"11px 14px",
         borderRadius:"15px",
         border:"1px solid #dbe4ee",
         background:"white",
@@ -678,7 +678,7 @@ function Input(props) {
         fontWeight:"600",
         outline:"none",
         color:"#0f172a",
-        marginTop:"10px",
+        marginTop:"6px",
         boxSizing:"border-box",
         ...(props.style || {})
       }}
@@ -693,8 +693,8 @@ function LocationHint() {
         display:"inline-flex",
         alignItems:"center",
         gap:"6px",
-        marginTop:"10px",
-        padding:"7px 10px",
+        marginTop:"4px",
+        padding:"5px 8px",
         borderRadius:"999px",
         background:"#eff6ff",
         border:"1px solid #dbeafe",

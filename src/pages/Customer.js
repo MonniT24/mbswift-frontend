@@ -6057,8 +6057,8 @@ async function sendMessage(
     setActiveSection("messages")
   }
 >
-  <FiBell />
-  Messages
+ <FiMessageCircle />
+<span>Messages</span>
 </MenuItem>
             
 
