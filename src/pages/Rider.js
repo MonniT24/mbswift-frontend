@@ -1141,6 +1141,66 @@ const [riderProfileEditing,setRiderProfileEditing] =
 const [orders, setOrders] =
   useState([]);
 
+useEffect(()=>{
+
+  function playNewOrderSound(){
+
+    const audio =
+      new Audio("/sounds/new-order.mp3");
+
+    audio.volume = 1;
+
+    audio.play().catch(()=>{
+      console.log(
+        "Sound blocked until rider taps the page first"
+      );
+    });
+  }
+
+  function handleNewOrder(data){
+
+    console.log(
+      "NEW ORDER FOR RIDER:",
+      data
+    );
+
+    playNewOrderSound();
+
+    if("Notification" in window){
+
+      if(Notification.permission === "granted"){
+
+        new Notification(
+          "New delivery request",
+          {
+            body:"A customer has created a new order.",
+            icon:"/logo.png"
+          }
+        );
+      }
+
+      if(Notification.permission !== "denied"){
+        Notification.requestPermission();
+      }
+    }
+
+    fetchOrders();
+  }
+
+  socket.on(
+    "newOrderForRiders",
+    handleNewOrder
+  );
+
+  return ()=>{
+    socket.off(
+      "newOrderForRiders",
+      handleNewOrder
+    );
+  };
+
+},[]);  
+
   const riderProfileCompleted =
   Boolean(
     user?.dob &&
