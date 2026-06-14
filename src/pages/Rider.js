@@ -2042,11 +2042,11 @@ setEarnings(
       }
     );
 
-    alert(
-      status === "offline"
-      ? "You are now offline"
-      : "You are now online"
-    );
+   console.log(
+  status === "offline"
+  ? "You are now offline"
+  : "You are now online"
+);
 
     fetchMe();
 
@@ -2544,26 +2544,99 @@ const res =
   alt="Rider"
 />
 
-<label
-  htmlFor="riderProfileUpload"
+<div
   style={{
-  display:"inline-flex",
-  alignItems:"center",
-  justifyContent:"center",
-  padding:"9px 16px",
-  borderRadius:"14px",
-  background:"#facc15",
-  color:"#0f172a",
-  fontWeight:"900",
-  cursor:"pointer",
-  marginTop:"6px",
-  marginBottom:"8px",
-  fontSize:"13px",
-  lineHeight:"1"
-}}
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+    gap:"8px",
+    marginTop:"6px",
+    marginBottom:"8px"
+  }}
 >
-  Change Picture
-</label>
+
+  <label
+  htmlFor="riderProfileUpload"
+  onMouseEnter={(e)=>{
+    e.currentTarget.style.transform =
+      "translateY(-2px)";
+    e.currentTarget.style.boxShadow =
+      "0 10px 22px rgba(250,204,21,0.35)";
+  }}
+     onMouseLeave={(e)=>{
+    e.currentTarget.style.transform =
+      "translateY(0)";
+    e.currentTarget.style.boxShadow =
+      "none";
+  }}
+      style={{
+      display:"inline-flex",
+      alignItems:"center",
+      transition:"0.25s ease",
+      justifyContent:"center",
+      padding:"8px 13px",
+      borderRadius:"14px",
+      background:"#facc15",
+      color:"#0f172a",
+      fontWeight:"900",
+      cursor:"pointer",
+      fontSize:"12px",
+      lineHeight:"1"
+    }}
+  >
+    Change Picture
+  </label>
+
+ <button
+  type="button"
+  onMouseEnter={(e)=>{
+    e.currentTarget.style.transform =
+      "translateY(-2px)";
+    e.currentTarget.style.opacity =
+      "0.92";
+  }}
+      onMouseLeave={(e)=>{
+    e.currentTarget.style.transform =
+      "translateY(0)";
+    e.currentTarget.style.opacity =
+      "1";
+  }}
+       onClick={()=>
+        updateAvailability(
+        getRiderDisplayStatus() === "offline"
+        ? "available"
+        : "offline"
+      )
+    }
+    style={{
+      border:"none",
+      borderRadius:"999px",
+      transition:"0.25s ease",
+      width:"100px",
+      height:"44px",
+      background:
+        getRiderDisplayStatus() === "offline"
+        ? "#64748b"
+        : getRiderDisplayStatus() === "busy"
+        ? "#dc2626"
+        : "#16a34a",
+      color:"white",
+      fontWeight:"900",
+      fontSize:"12px",
+      cursor:"pointer",
+      lineHeight:"1"
+    }}
+  >
+    {
+      getRiderDisplayStatus() === "offline"
+      ? "OFFLINE"
+      : getRiderDisplayStatus() === "busy"
+      ? "BUSY"
+      : "ONLINE"
+    }
+  </button>
+
+</div>
 
 <input
   id="riderProfileUpload"
@@ -2658,9 +2731,13 @@ const res =
   display:"flex",
   alignItems:"center",
   justifyContent:"center",
-  gap:"8px",
-  margin:"6px 0 6px",
-  fontSize:"15px",
+  gap:"10px",
+  margin:"12px 0 0px",
+  fontSize:"14px",
+  whiteSpace:"nowrap",
+  overflow:"hidden",
+  textOverflow:"ellipsis",
+  maxWidth:"180px",
   fontWeight:"900",
   color:"#0f172a"
 }}
@@ -2672,22 +2749,6 @@ const res =
     "Rider"
   }
 </h3>
-
-      <RiderStatus
-  status={getRiderDisplayStatus()}
->
-
-       {
-  getRiderDisplayStatus() === "busy"
-  ? "BUSY"
-  : getRiderDisplayStatus() === "offline"
-  ? "OFF-DUTY"
-  : getRiderDisplayStatus() === "suspended"
-  ? "SUSPENDED"
-  : "AVAILABLE"
-}
-
-      </RiderStatus>
 
     </ProfileCard>
 
@@ -3147,6 +3208,8 @@ const res =
   </OrderCard>
 )}
 
+{riderPage === "home" && (
+
 <ResponsiveTwoColumn>
 
   <OrderCard
@@ -3229,15 +3292,23 @@ const res =
   }}
 >
 
-  <button
-    type="button"
-    onClick={()=>
-      setActiveRiderCard(
-        activeRiderCard === "pending"
-        ? ""
-        : "pending"
-      )
-    }
+ <button
+  type="button"
+  onMouseEnter={(e)=>{
+    e.currentTarget.style.transform =
+      "translateY(-5px)";
+    e.currentTarget.style.boxShadow =
+      "0 14px 28px rgba(15,23,42,0.12)";
+  }}
+  onMouseLeave={(e)=>{
+    e.currentTarget.style.transform =
+      "translateY(0)";
+    e.currentTarget.style.boxShadow =
+      "none";
+  }}
+  onClick={()=>
+   setRiderPage("pending")
+  }
     style={{
       background:"#eff6ff",
       border:
@@ -3247,7 +3318,8 @@ const res =
       borderRadius:"18px",
       padding:"16px",
       cursor:"pointer",
-      textAlign:"left"
+      textAlign:"left",
+      transition:"0.25s ease"
     }}
   >
 
@@ -3275,14 +3347,22 @@ const res =
   </button>
 
   <button
-    type="button"
-    onClick={()=>
-      setActiveRiderCard(
-        activeRiderCard === "active"
-        ? ""
-        : "active"
-      )
-    }
+  type="button"
+  onMouseEnter={(e)=>{
+    e.currentTarget.style.transform =
+      "translateY(-5px)";
+    e.currentTarget.style.boxShadow =
+      "0 14px 28px rgba(15,23,42,0.12)";
+  }}
+  onMouseLeave={(e)=>{
+    e.currentTarget.style.transform =
+      "translateY(0)";
+    e.currentTarget.style.boxShadow =
+      "none";
+  }}
+ onClick={()=>
+  setRiderPage("active")
+}
     style={{
       background:"#fefce8",
       border:
@@ -3292,7 +3372,8 @@ const res =
       borderRadius:"18px",
       padding:"16px",
       cursor:"pointer",
-      textAlign:"left"
+      textAlign:"left",
+      transition:"0.25s ease"
     }}
   >
 
@@ -3320,14 +3401,22 @@ const res =
   </button>
 
   <button
-    type="button"
-    onClick={()=>
-      setActiveRiderCard(
-        activeRiderCard === "completed"
-        ? ""
-        : "completed"
-      )
-    }
+  type="button"
+  onMouseEnter={(e)=>{
+    e.currentTarget.style.transform =
+      "translateY(-5px)";
+    e.currentTarget.style.boxShadow =
+      "0 14px 28px rgba(15,23,42,0.12)";
+  }}
+  onMouseLeave={(e)=>{
+    e.currentTarget.style.transform =
+      "translateY(0)";
+    e.currentTarget.style.boxShadow =
+      "none";
+  }}
+  onClick={()=>
+  setRiderPage("completed")
+}
     style={{
       background:"#f0fdf4",
       border:
@@ -3337,7 +3426,8 @@ const res =
       borderRadius:"18px",
       padding:"16px",
       cursor:"pointer",
-      textAlign:"left"
+      textAlign:"left",
+      transition:"0.25s ease"
     }}
   >
 
@@ -3367,7 +3457,7 @@ const res =
 </div>
 
 {
-  activeRiderCard && (
+  false && activeRiderCard && (
 
     <div
       style={{
@@ -3621,112 +3711,9 @@ const res =
 }
   </OrderCard>
 
-  <OrderCard
-  style={{
-    background:
-      "linear-gradient(135deg, #0f172a, #1d4ed8)",
-    color:"white",
-    border:"1px solid rgba(250,204,21,0.28)",
-    boxShadow:
-      "0 10px 24px rgba(29,78,216,0.14)",
-    padding:"18px",
-    borderRadius:"24px"
-  }}
->
-
-  <div
-    style={{
-      width:"42px",
-      height:"42px",
-      borderRadius:"15px",
-      background:"#facc15",
-      color:"#0f172a",
-      display:"flex",
-      alignItems:"center",
-      justifyContent:"center",
-      fontSize:"20px",
-      marginBottom:"10px"
-    }}
-  >
-    🛵
-  </div>
-
-  <div
-    style={{
-      fontSize:"18px",
-      fontWeight:"900",
-      marginBottom:"10px"
-    }}
-  >
-    Rider Status
-  </div>
-
-  <Button
-    type="button"
-    onClick={()=>
-      updateAvailability(
-        getRiderDisplayStatus() === "offline"
-        ? "available"
-        : "offline"
-      )
-    }
-    style={{
-      marginTop:"0",
-      marginBottom:"10px",
-      padding:"10px 14px",
-      borderRadius:"14px",
-      background:
-        getRiderDisplayStatus() === "offline"
-        ? "linear-gradient(135deg, #16a34a, #22c55e)"
-        : "linear-gradient(135deg, #dc2626, #ef4444)",
-      color:"white",
-      fontWeight:"900"
-    }}
-  >
-    {
-      getRiderDisplayStatus() === "offline"
-      ? "Go Online"
-      : "Go Offline"
-    }
-  </Button>
-
-  <div
-    style={{
-      color:"rgba(255,255,255,0.80)",
-      fontSize:"13px",
-      fontWeight:"700",
-      lineHeight:"1.4",
-      marginBottom:"10px"
-    }}
-  >
-    Stay online to receive delivery requests.
-  </div>
-
-  <div
-    style={{
-      background:"rgba(255,255,255,0.12)",
-      border:"1px solid rgba(255,255,255,0.18)",
-      borderRadius:"14px",
-      padding:"11px",
-      fontSize:"14px",
-      fontWeight:"900",
-      color:"#facc15"
-    }}
-  >
-    Current Status:{" "}
-    {
-      getRiderDisplayStatus() === "busy"
-      ? "BUSY"
-      : getRiderDisplayStatus() === "offline"
-      ? "OFF-DUTY"
-      : getRiderDisplayStatus() === "suspended"
-      ? "SUSPENDED"
-      : "AVAILABLE"
-    }
-  </div>
-
-</OrderCard>
 </ResponsiveTwoColumn>
+
+)}
 
 {
 
