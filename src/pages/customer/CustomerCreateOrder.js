@@ -111,71 +111,71 @@ const {
 
   return (
     <>
-      <div
-        style={{
-          background:"linear-gradient(135deg,#ffffff,#f8fafc)",
-          borderRadius:"28px",
-          padding:"26px",
-          border:"1px solid rgba(29,78,216,0.10)",
-          boxShadow:"0 16px 38px rgba(15,23,42,0.08)",
-          position:"relative",
-          overflow:"hidden"
-        }}
-      >
-        <div
-          style={{
-            background:
-              "radial-gradient(circle at top right, rgba(250,204,21,0.35), transparent 34%), linear-gradient(135deg,#0f172a,#1d4ed8)",
-            borderRadius:"24px",
-            padding:"24px",
-            marginBottom:"24px",
-            color:"white",
-            border:"1px solid rgba(250,204,21,0.28)",
-            boxShadow:"0 16px 34px rgba(29,78,216,0.20)"
-          }}
-        >
-          <div
-            style={{
-              display:"inline-flex",
-              padding:"8px 14px",
-              borderRadius:"999px",
-              background:"rgba(250,204,21,0.18)",
-              color:"#facc15",
-              border:"1px solid rgba(250,204,21,0.35)",
-              fontSize:"13px",
-              fontWeight:"900",
-              marginBottom:"14px"
-            }}
-          >
-            🚀 Fast Delivery Across Accra
-          </div>
+     <div
+  style={{
+    background:"linear-gradient(135deg,#ffffff,#f8fafc)",
+    borderRadius:"22px",
+    padding:"18px",
+    border:"1px solid rgba(29,78,216,0.10)",
+    boxShadow:"0 10px 24px rgba(15,23,42,0.06)",
+    position:"relative",
+    overflow:"hidden"
+  }}
+>
+  <div
+    style={{
+      background:
+        "radial-gradient(circle at top right, rgba(250,204,21,0.30), transparent 32%), linear-gradient(135deg,#0f172a,#1d4ed8)",
+      borderRadius:"20px",
+      padding:"18px",
+      marginBottom:"18px",
+      color:"white",
+      border:"1px solid rgba(250,204,21,0.22)",
+      boxShadow:"0 10px 24px rgba(29,78,216,0.16)"
+    }}
+  >
+    <div
+      style={{
+        display:"inline-flex",
+        padding:"6px 12px",
+        borderRadius:"999px",
+        background:"rgba(250,204,21,0.18)",
+        color:"#facc15",
+        border:"1px solid rgba(250,204,21,0.35)",
+        fontSize:"12px",
+        fontWeight:"900",
+        marginBottom:"10px"
+      }}
+    >
+      🚀 Fast Delivery Across Accra
+    </div>
 
-          <h2
-            style={{
-              fontSize:"30px",
-              fontWeight:"900",
-              lineHeight:"1.1",
-              margin:"0 0 10px",
-              color:"white"
-            }}
-          >
-            Send Packages Faster, Safer & Smarter 📦
-          </h2>
+    <h2
+      style={{
+        fontSize:"24px",
+        fontWeight:"900",
+        lineHeight:"1.12",
+        margin:"0 0 8px",
+        color:"white"
+      }}
+    >
+      Send Packages Faster, Safer & Smarter 📦
+    </h2>
 
-          <p
-            style={{
-              maxWidth:"620px",
-              color:"rgba(255,255,255,0.86)",
-              fontSize:"15px",
-              fontWeight:"600",
-              lineHeight:"1.55",
-              margin:0
-            }}
-          >
-            Book a rider, track your delivery, and pay with ease —
-            all from your MB Swift dashboard.
-          </p>
-        </div>
+    <p
+      style={{
+        maxWidth:"570px",
+        color:"rgba(255,255,255,0.86)",
+        fontSize:"13px",
+        fontWeight:"600",
+        lineHeight:"1.45",
+        margin:0
+      }}
+    >
+      Book a rider, track your delivery, and pay with ease —
+      all from your MB Swift dashboard.
+    </p>
+  </div>
 
         <OrderSection
           step="1"
