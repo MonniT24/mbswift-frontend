@@ -403,17 +403,19 @@ const {
               marginTop:"12px"
             }}
           >
-            <PayButton
-              active={paymentMethod === "cash"}
-              onClick={()=>setPaymentMethod("cash")}
-            >
+           <PayButton
+  type="button"
+  active={paymentMethod === "cash"}
+  onClick={()=>setPaymentMethod("cash")}
+>
               Cash on Delivery
             </PayButton>
 
             <PayButton
-              active={paymentMethod === "momo"}
-              onClick={()=>setPaymentMethod("momo")}
-            >
+  type="button"
+  active={paymentMethod === "momo"}
+  onClick={()=>setPaymentMethod("momo")}
+>
               Mobile Money
             </PayButton>
           </div>
@@ -490,6 +492,9 @@ onMouseLeave={(e)=>{
             fontWeight:"900",
             cursor:"pointer",
             transition:"0.25s ease",
+            touchAction:"manipulation",
+            WebkitTapHighlightColor:"transparent",
+            userSelect:"none",
             boxShadow:"0 12px 26px rgba(29,78,216,0.22)"
           }}
         >
@@ -498,115 +503,122 @@ onMouseLeave={(e)=>{
       </div>
 
       {showConfirm && (
-        <div
-          style={{
-            background:"linear-gradient(135deg,#ffffff,#f8fafc)",
-            borderRadius:"22px",
-            padding:"22px",
-            boxShadow:"0 12px 28px rgba(15,23,42,0.07)",
-            border:"2px solid #facc15",
-            marginTop:"24px"
-          }}
-        >
-          <h2
-            style={{
-              fontSize:"24px",
-              marginBottom:"7px",
-              color:"#0f172a",
-              display:"flex",
-              alignItems:"center",
-              gap:"10px",
-              fontWeight:"900"
-            }}
-          >
-            <span
-              style={{
-                width:"24px",
-                height:"24px",
-                borderRadius:"12px",
-                display:"inline-flex",
-                alignItems:"center",
-                justifyContent:"center",
-                background:"linear-gradient(135deg,#0f172a,#1d4ed8)",
-                color:"#facc15",
-                fontSize:"14px"
-              }}
-            >
-              <FiPackage />
-            </span>
+  <div
+    style={{
+      background:"linear-gradient(135deg,#ffffff,#f8fafc)",
+      borderRadius:"22px",
+      padding:"22px",
+      boxShadow:"0 12px 28px rgba(15,23,42,0.07)",
+      border:"2px solid #facc15",
+      marginTop:"24px"
+    }}
+  >
+    <h2
+      style={{
+        fontSize:"24px",
+        marginBottom:"7px",
+        color:"#0f172a",
+        display:"flex",
+        alignItems:"center",
+        gap:"10px",
+        fontWeight:"900"
+      }}
+    >
+      <span
+        style={{
+          width:"24px",
+          height:"24px",
+          borderRadius:"12px",
+          display:"inline-flex",
+          alignItems:"center",
+          justifyContent:"center",
+          background:"linear-gradient(135deg,#0f172a,#1d4ed8)",
+          color:"#facc15",
+          fontSize:"14px"
+        }}
+      >
+        <FiPackage />
+      </span>
 
-            Confirm Your Order
-          </h2>
+      Confirm Your Order
+    </h2>
 
-          <ConfirmRow label="Pickup" value={pickupLocation} />
-          <ConfirmRow label="Dropoff" value={dropoffLocation} />
-          <ConfirmRow label="Item Notes" value={itemNotes || "None"} />
-          <ConfirmRow label="Distance" value={`${distance} KM`} />
-          <ConfirmRow label="Estimated Delivery Time" value={deliveryTime} />
-          <ConfirmRow label="Delivery Fee" value={`₵${amount}`} />
-          <ConfirmRow
-            label="Payment Method"
-            value={
-              paymentMethod === "cash"
-                ? "Cash on Delivery"
-                : paymentMethod === "momo"
-                ? "Mobile Money"
-                : "Not selected"
-            }
-          />
+    <ConfirmRow label="Pickup" value={pickupLocation} />
+    <ConfirmRow label="Dropoff" value={dropoffLocation} />
+    <ConfirmRow label="Item Notes" value={itemNotes || "None"} />
+    <ConfirmRow label="Distance" value={`${distance} KM`} />
+    <ConfirmRow label="Estimated Delivery Time" value={deliveryTime} />
+    <ConfirmRow label="Delivery Fee" value={`₵${amount}`} />
 
-          {paymentMethod === "momo" && (
-            <ConfirmRow
-              label="MoMo Number"
-              value={momoNumber}
-            />
-          )}
+    <ConfirmRow
+      label="Payment Method"
+      value={
+        paymentMethod === "cash"
+        ? "Cash on Delivery"
+        : paymentMethod === "momo"
+        ? "Mobile Money"
+        : "Not selected"
+      }
+    />
 
-          <div
-            style={{
-              display:"flex",
-              gap:"10px",
-              marginTop:"18px",
-              flexWrap:"wrap"
-            }}
-          >
-            <button
-              type="button"
-              onClick={createOrder}
-              style={{
-                border:"none",
-                borderRadius:"14px",
-                padding:"12px 16px",
-                background:"#2563eb",
-                color:"white",
-                fontWeight:"900",
-                cursor:"pointer",
-                flex:1
-              }}
-            >
-              Confirm Order
-            </button>
+    {paymentMethod === "momo" && (
+      <ConfirmRow
+        label="MoMo Number"
+        value={momoNumber}
+      />
+    )}
 
-            <button
-              type="button"
-              onClick={()=>setShowConfirm(false)}
-              style={{
-                border:"none",
-                borderRadius:"14px",
-                padding:"12px 16px",
-                background:"#dc2626",
-                color:"white",
-                fontWeight:"900",
-                cursor:"pointer",
-                flex:1
-              }}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
-    </>
+    <div
+      style={{
+        display:"flex",
+        gap:"10px",
+        marginTop:"18px",
+        flexWrap:"wrap"
+      }}
+    >
+      <button
+        type="button"
+        onClick={createOrder}
+        style={{
+          border:"none",
+          borderRadius:"14px",
+          padding:"12px 16px",
+          background:"#2563eb",
+          color:"white",
+          fontWeight:"900",
+          cursor:"pointer",
+          touchAction:"manipulation",
+          WebkitTapHighlightColor:"transparent",
+          userSelect:"none",
+          flex:1
+        }}
+      >
+        Confirm Order
+      </button>
+
+      <button
+        type="button"
+        onClick={()=>setShowConfirm(false)}
+        style={{
+          border:"none",
+          borderRadius:"14px",
+          padding:"12px 16px",
+          background:"#dc2626",
+          color:"white",
+          fontWeight:"900",
+          cursor:"pointer",
+          touchAction:"manipulation",
+          WebkitTapHighlightColor:"transparent",
+          userSelect:"none",
+          flex:1
+        }}
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+)}
+</>
   );
 }
 
