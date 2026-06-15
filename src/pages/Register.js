@@ -177,6 +177,9 @@ const Button = styled.button`
   cursor:pointer;
   transition:0.25s ease;
   margin-bottom:${props=>props.$space ? "14px" : "0"};
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
 
   &:hover{
     opacity:0.92;
@@ -228,6 +231,9 @@ export default function Register(){
     useState("");
 
   const [dob,setDob] =
+    useState("");
+
+  const [referralCode,setReferralCode] =
     useState("");
 
   const [loading,setLoading] =
@@ -416,7 +422,9 @@ export default function Register(){
               gender,
               dob,
               role,
-              phoneVerificationToken
+              phoneVerificationToken,
+              referralCode:
+                referralCode.trim().toUpperCase()
             }
           );
 
@@ -434,9 +442,9 @@ export default function Register(){
 
         setShowWelcome(true);
 
-setLoading(false);
+        setLoading(false);
 
-return;
+        return;
 
       }catch(err){
 
@@ -475,19 +483,19 @@ return;
             Click the button below to continue to your dashboard.
           </Text>
 
-         <Button
-  type="button"
-  onClick={()=>
-    navigate(
-      "/customer",
-      {
-        replace:true
-      }
-    )
-  }
->
-  Continue to Dashboard
-</Button>
+          <Button
+            type="button"
+            onClick={()=>
+              navigate(
+                "/customer",
+                {
+                  replace:true
+                }
+              )
+            }
+          >
+            Continue to Dashboard
+          </Button>
 
         </Card>
 
@@ -574,6 +582,17 @@ return;
               setDob(e.target.value)
             }
             required
+          />
+
+          <Input
+            type="text"
+            placeholder="Referral Code (Optional)"
+            value={referralCode}
+            onChange={(e)=>
+              setReferralCode(
+                e.target.value.toUpperCase()
+              )
+            }
           />
 
           <PasswordWrap>
@@ -703,18 +722,18 @@ return;
             }
           </Button>
 
-        <Button
-  type="button"
-  onClick={()=>
-    navigate("/become-rider")
-  }
-  style={{
-    background:"#1d4ed8",
-    marginTop:"14px"
-  }}
->
-  Become a Rider
-</Button> 
+          <Button
+            type="button"
+            onClick={()=>
+              navigate("/become-rider")
+            }
+            style={{
+              background:"#1d4ed8",
+              marginTop:"14px"
+            }}
+          >
+            Become a Rider
+          </Button>
 
         </form>
 

@@ -98,6 +98,56 @@ function sendChatbotMessage(){
   setChatbotText("");
 } 
 
+function copyReferralCode(){
+
+  const code =
+    user?.referralCode || "";
+
+  if(!code){
+    alert("Referral code not available yet");
+    return;
+  }
+
+  navigator.clipboard.writeText(code);
+
+  alert("Referral code copied");
+}
+
+function shareReferralCode(){
+
+  const code =
+    user?.referralCode || "";
+
+  if(!code){
+    alert("Referral code not available yet");
+    return;
+  }
+
+  const message =
+    `🚀 Get fast delivery with MB Swift.
+
+Use my referral code:
+
+${code}
+
+https://www.mbswiftgh.com`;
+
+  if(navigator.share){
+
+    navigator.share({
+      title:"MB Swift Referral",
+      text:message,
+      url:"https://www.mbswiftgh.com"
+    });
+
+    return;
+  }
+
+  navigator.clipboard.writeText(message);
+
+  alert("Referral message copied");
+}
+
   const [customerPage,setCustomerPage] =
     useState("home");
 
@@ -365,6 +415,125 @@ function sendChatbotMessage(){
           </div>
         </div>
       </div>
+
+      {customerPage === "home" && (
+
+  <div
+    style={{
+      background:"linear-gradient(135deg,#0f172a,#1d4ed8)",
+      borderRadius:"20px",
+      padding:"18px",
+      color:"white",
+      marginBottom:"18px",
+      boxShadow:"0 12px 28px rgba(29,78,216,0.18)"
+    }}
+  >
+    <div
+      style={{
+        fontSize:"20px",
+        fontWeight:"900",
+        marginBottom:"8px"
+      }}
+    >
+      🎁 Refer & Earn
+    </div>
+
+    <div
+      style={{
+        fontSize:"13px",
+        color:"rgba(255,255,255,0.82)",
+        fontWeight:"700",
+        marginBottom:"14px"
+      }}
+    >
+      Share your code with friends and earn rewards when they use MB Swift.
+    </div>
+
+    <div
+      style={{
+        background:"rgba(255,255,255,0.12)",
+        border:"1px solid rgba(250,204,21,0.30)",
+        borderRadius:"16px",
+        padding:"14px",
+        marginBottom:"14px"
+      }}
+    >
+      <div
+        style={{
+          fontSize:"12px",
+          fontWeight:"900",
+          color:"#facc15",
+          marginBottom:"6px"
+        }}
+      >
+        YOUR REFERRAL CODE
+      </div>
+
+      <div
+        style={{
+          fontSize:"24px",
+          fontWeight:"900",
+          letterSpacing:"1px"
+        }}
+      >
+        {user?.referralCode || "MBSWIFT-----"}
+      </div>
+    </div>
+
+    <div
+      style={{
+        display:"flex",
+        gap:"10px",
+        flexWrap:"wrap"
+      }}
+    >
+      <button
+        type="button"
+        onClick={copyReferralCode}
+        style={{
+          border:"none",
+          borderRadius:"14px",
+          padding:"11px 14px",
+          background:"#facc15",
+          color:"#0f172a",
+          fontWeight:"900",
+          cursor:"pointer"
+        }}
+      >
+        Copy Code
+      </button>
+
+      <button
+        type="button"
+        onClick={shareReferralCode}
+        style={{
+          border:"1px solid rgba(255,255,255,0.25)",
+          borderRadius:"14px",
+          padding:"11px 14px",
+          background:"rgba(255,255,255,0.12)",
+          color:"white",
+          fontWeight:"900",
+          cursor:"pointer"
+        }}
+      >
+        Share Code
+      </button>
+
+      <div
+        style={{
+          padding:"11px 14px",
+          borderRadius:"14px",
+          background:"rgba(255,255,255,0.10)",
+          color:"#facc15",
+          fontWeight:"900"
+        }}
+      >
+        Credits: ₵{user?.referralCredits || 0}
+      </div>
+    </div>
+  </div>
+
+)}
 
       {customerPage === "home" && (
         <div
