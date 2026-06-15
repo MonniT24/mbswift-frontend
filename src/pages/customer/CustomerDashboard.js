@@ -204,9 +204,9 @@ https://www.mbswiftgh.com`;
           background:
             "radial-gradient(circle at top right, rgba(250,204,21,0.28), transparent 30%), linear-gradient(135deg,#0f172a,#1d4ed8)",
           color:"white",
-          borderRadius:isMobile ? "24px" : "28px",
-          padding:isMobile ? "16px" : "18px",
-          marginBottom:"18px",
+          borderRadius:isMobile ? "20px" : "22px",
+          padding:isMobile ? "12px" : "14px",
+          marginBottom:"12px",
           boxShadow:"0 12px 28px rgba(15,23,42,0.14)"
         }}
       >
@@ -266,9 +266,9 @@ https://www.mbswiftgh.com`;
 
               <h1
                 style={{
-                  fontSize:isMobile ? "24px" : "26px",
+                  fontSize:isMobile ? "22px" : "24px",
                   fontWeight:"900",
-                  margin:"0 0 12px",
+                  margin:"0 0 8px",
                   lineHeight:"1.08",
                   color:"white"
                 }}
@@ -282,8 +282,8 @@ https://www.mbswiftgh.com`;
                 style={{
                   maxWidth:isMobile ? "100%" : "460px",
                   color:"#dbeafe",
-                  fontSize:"13px",
-                  lineHeight:"1.55",
+                  fontSize:"12px",
+                  lineHeight:"1.45",
                   margin:isMobile ? "0 auto" : "0",
                   fontWeight:"600"
                 }}
@@ -295,7 +295,7 @@ https://www.mbswiftgh.com`;
               <div
                 style={{
                   display:"flex",
-                  gap:"12px",
+                  gap:"8px",
                   flexWrap:"wrap",
                   marginTop:"22px",
                   justifyContent:isMobile ? "center" : "flex-start"
@@ -421,70 +421,82 @@ https://www.mbswiftgh.com`;
   <div
     style={{
       background:"linear-gradient(135deg,#0f172a,#1d4ed8)",
-      borderRadius:"20px",
-      padding:"18px",
+      borderRadius:"18px",
+      padding:isMobile ? "12px" : "14px",
       color:"white",
-      marginBottom:"18px",
-      boxShadow:"0 12px 28px rgba(29,78,216,0.18)"
+      marginBottom:"14px",
+      boxShadow:"0 8px 20px rgba(29,78,216,0.14)"
     }}
   >
     <div
       style={{
-        fontSize:"20px",
-        fontWeight:"900",
-        marginBottom:"8px"
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"space-between",
+        gap:"10px",
+        flexWrap:"wrap"
       }}
     >
-      🎁 Refer & Earn
-    </div>
+      <div>
+        <div
+          style={{
+            fontSize:isMobile ? "16px" : "18px",
+            fontWeight:"900",
+            marginBottom:"4px"
+          }}
+        >
+          🎁 Refer & Earn
+        </div>
 
-    <div
-      style={{
-        fontSize:"13px",
-        color:"rgba(255,255,255,0.82)",
-        fontWeight:"700",
-        marginBottom:"14px"
-      }}
-    >
-      Share your code with friends and earn rewards when they use MB Swift.
-    </div>
-
-    <div
-      style={{
-        background:"rgba(255,255,255,0.12)",
-        border:"1px solid rgba(250,204,21,0.30)",
-        borderRadius:"16px",
-        padding:"14px",
-        marginBottom:"14px"
-      }}
-    >
-      <div
-        style={{
-          fontSize:"12px",
-          fontWeight:"900",
-          color:"#facc15",
-          marginBottom:"6px"
-        }}
-      >
-        YOUR REFERRAL CODE
+        <div
+          style={{
+            fontSize:"12px",
+            color:"rgba(255,255,255,0.82)",
+            fontWeight:"700"
+          }}
+        >
+          Share your code and earn rewards.
+        </div>
       </div>
 
       <div
         style={{
-          fontSize:"24px",
-          fontWeight:"900",
-          letterSpacing:"1px"
+          background:"rgba(255,255,255,0.12)",
+          border:"1px solid rgba(250,204,21,0.30)",
+          borderRadius:"14px",
+          padding:"9px 12px",
+          minWidth:isMobile ? "100%" : "260px"
         }}
       >
-        {user?.referralCode || "MBSWIFT-----"}
+        <div
+          style={{
+            fontSize:"10px",
+            fontWeight:"900",
+            color:"#facc15",
+            marginBottom:"3px"
+          }}
+        >
+          YOUR CODE
+        </div>
+
+        <div
+          style={{
+            fontSize:isMobile ? "19px" : "22px",
+            fontWeight:"900",
+            letterSpacing:"1px"
+          }}
+        >
+          {user?.referralCode || "MBSWIFT-----"}
+        </div>
       </div>
     </div>
 
     <div
       style={{
         display:"flex",
-        gap:"10px",
-        flexWrap:"wrap"
+        gap:"8px",
+        flexWrap:"wrap",
+        marginTop:"10px"
       }}
     >
       <button
@@ -492,15 +504,16 @@ https://www.mbswiftgh.com`;
         onClick={copyReferralCode}
         style={{
           border:"none",
-          borderRadius:"14px",
-          padding:"11px 14px",
+          borderRadius:"12px",
+          padding:"9px 12px",
           background:"#facc15",
           color:"#0f172a",
+          fontSize:"12px",
           fontWeight:"900",
           cursor:"pointer"
         }}
       >
-        Copy Code
+        Copy
       </button>
 
       <button
@@ -508,23 +521,25 @@ https://www.mbswiftgh.com`;
         onClick={shareReferralCode}
         style={{
           border:"1px solid rgba(255,255,255,0.25)",
-          borderRadius:"14px",
-          padding:"11px 14px",
+          borderRadius:"12px",
+          padding:"9px 12px",
           background:"rgba(255,255,255,0.12)",
           color:"white",
+          fontSize:"12px",
           fontWeight:"900",
           cursor:"pointer"
         }}
       >
-        Share Code
+        Share
       </button>
 
       <div
         style={{
-          padding:"11px 14px",
-          borderRadius:"14px",
+          padding:"9px 12px",
+          borderRadius:"12px",
           background:"rgba(255,255,255,0.10)",
           color:"#facc15",
+          fontSize:"12px",
           fontWeight:"900"
         }}
       >
@@ -708,7 +723,7 @@ https://www.mbswiftgh.com`;
                 width:"100%",
                 border:"none",
                 borderRadius:"14px",
-                padding:"12px 16px",
+                padding:"10px 14px",
                 background:"#2563eb",
                 color:"white",
                 fontWeight:"900",
