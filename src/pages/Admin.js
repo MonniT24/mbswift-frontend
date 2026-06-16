@@ -2511,7 +2511,15 @@ function clearRiderStatusFilters(){
 
   </StatCard>
 
-  <StatCard>
+ <StatCard
+  $active={activeAdminView === "waitingFees"}
+  onClick={()=>
+  setActiveAdminView("waitingFees") 
+  }
+  style={{
+    cursor:"pointer"
+  }}
+>
   <StatTitle>
     Waiting Fee Revenue
   </StatTitle>
@@ -2524,6 +2532,7 @@ function clearRiderStatusFilters(){
     Total waiting time: {totalWaitingMinutes} mins.
   </StatSmall>
 </StatCard>
+
   <StatCard
     $active={activeAdminView === "total"}
     onClick={()=>

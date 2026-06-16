@@ -416,6 +416,96 @@ https://www.mbswiftgh.com`;
         </div>
       </div>
 
+    <div
+  style={{
+    background:"linear-gradient(135deg,#0f172a,#1d4ed8)",
+    borderRadius:"18px",
+    padding:isMobile ? "14px" : "16px",
+    color:"white",
+    marginBottom:"14px",
+    boxShadow:"0 8px 20px rgba(15,23,42,0.12)"
+  }}
+>
+  <div
+    style={{
+      fontSize:isMobile ? "16px" : "18px",
+      fontWeight:"900",
+      color:"#facc15",
+      marginBottom:"6px"
+    }}
+  >
+    🚀 Fast Delivery Across Accra
+  </div>
+
+  <div
+    style={{
+      fontSize:"12px",
+      fontWeight:"700",
+      lineHeight:"1.45",
+      marginBottom:"10px",
+      color:"rgba(255,255,255,0.86)"
+    }}
+  >
+    Book trusted riders for fast, secure and affordable deliveries.
+  </div>
+
+  <div
+    style={{
+      display:"flex",
+      flexWrap:"wrap",
+      gap:"6px",
+      marginBottom:"10px"
+    }}
+  >
+    {[
+      "Same Day",
+      "Live Tracking",
+      "Secure"
+    ].map((item)=>(
+      <span
+        key={item}
+        style={{
+          background:"rgba(250,204,21,0.18)",
+          color:"#facc15",
+          padding:"6px 9px",
+          borderRadius:"999px",
+          fontSize:"11px",
+          fontWeight:"900"
+        }}
+      >
+        {item}
+      </span>
+    ))}
+  </div>
+
+  <button
+    type="button"
+    onClick={() => setActiveSection("createOrder")}
+    style={{
+      width:"100%",
+      border:"none",
+      borderRadius:"14px",
+      padding:"11px",
+      background:"#facc15",
+      color:"#0f172a",
+      fontSize:"14px",
+      fontWeight:"900",
+      cursor:"pointer",
+      transition:"0.2s ease"
+    }}
+  onMouseEnter={(e)=>{
+  e.currentTarget.style.transform =
+    "translateY(-2px)";
+}}
+onMouseLeave={(e)=>{
+  e.currentTarget.style.transform =
+    "translateY(0)";
+}} 
+  >
+    Book Delivery Now
+  </button>
+</div>  
+
       {customerPage === "home" && (
 
   <div
@@ -561,6 +651,8 @@ https://www.mbswiftgh.com`;
             marginBottom:"20px"
           }}
         >
+
+          
           <StatCard
             title="Active Orders"
             value={activeOrders.length}
@@ -734,122 +826,7 @@ https://www.mbswiftgh.com`;
             </button>
           </div>
 
-          <div
-            style={{
-              background:"linear-gradient(135deg,#0f172a,#1d4ed8)",
-              color:"white",
-              border:"1px solid rgba(250,204,21,0.22)",
-              boxShadow:"0 10px 24px rgba(29,78,216,0.16)",
-              padding:"12px",
-              borderRadius:"20px",
-              alignSelf:"start"
-            }}
-          >
-            <h3
-  style={{
-    fontSize:"17px",
-    fontWeight:"900",
-    color:"#facc15",
-    margin:"0 0 10px"
-  }}
->
-  🚀 Fast Delivery Across Accra
-</h3>
-
-<div
-  style={{
-    fontSize:"13px",
-    lineHeight:"1.45",
-    color:"rgba(255,255,255,0.92)",
-    fontWeight:"700",
-    marginBottom:"10px"
-  }}
->
-  Need a rider urgently?
-  MB Swift connects you with trusted riders for
-  fast, secure and affordable deliveries.
-</div>
-
-<div
-  style={{
-    display:"flex",
-    gap:"10px",
-    flexWrap:"wrap",
-    marginBottom:"16px"
-  }}
->
-  <span
-    style={{
-      background:"#facc15",
-      color:"#0f172a",
-      padding:"5px 9px",
-      borderRadius:"999px",
-      fontSize:"12px",
-      fontWeight:"900"
-    }}
-  >
-    Same Day Delivery
-  </span>
-
-  <span
-    style={{
-      background:"#16a34a",
-      color:"white",
-      padding:"6px 12px",
-      borderRadius:"999px",
-      fontSize:"10px",
-      fontWeight:"900"
-    }}
-  >
-    Live Tracking
-  </span>
-
-  <span
-    style={{
-      background:"#2563eb",
-      color:"white",
-      padding:"6px 12px",
-      borderRadius:"999px",
-      fontSize:"10px",
-      fontWeight:"900"
-    }}
-  >
-    Secure Payments
-  </span>
-</div>
-
-<div
-  style={{
-    background:"rgba(250,204,21,0.15)",
-    border:"1px solid rgba(250,204,21,0.30)",
-    borderRadius:"16px",
-    padding:"12px",
-    color:"#fef3c7",
-    fontWeight:"800",
-    marginBottom:"16px"
-  }}
->
-  🎉 First-time customers enjoy quick booking
-  and instant rider matching.
-</div>
-
-<button
-  type="button"
-  onClick={() => setActiveSection("createOrder")}
-  style={{
-    width:"100%",
-    border:"none",
-    borderRadius:"14px",
-    padding:"12px",
-    background:"#facc15",
-    color:"#0f172a",
-    fontWeight:"900",
-    cursor:"pointer"
-  }}
->
-  Book Delivery Now
-</button>
-          </div>
+         
         </div>
       )}
 
