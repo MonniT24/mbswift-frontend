@@ -4788,6 +4788,47 @@ if(
 
 if(
   oldOrder &&
+  newOrder.riderArrivedAtPickup &&
+  newOrder.pickupWaitingStartedAt &&
+  !newOrder.pickupWaitingEndedAt
+){
+
+  const waitingMinutes =
+    Math.floor(
+      (
+        new Date().getTime() -
+        new Date(newOrder.pickupWaitingStartedAt).getTime()
+      ) / 60000
+    );
+
+  const warningKey =
+    `mbswiftWaitingWarning-${newOrder._id}`;
+
+  const alreadyWarned =
+    localStorage.getItem(
+      warningKey
+    );
+
+  if(
+    waitingMinutes >= 5 &&
+    !alreadyWarned
+  ){
+
+    addCustomerNotification(
+      "Rider Waiting Over 5 Minutes",
+      "Your rider has waited more than 5 minutes at pickup. Waiting fee may apply.",
+      "warning"
+    );
+
+    localStorage.setItem(
+      warningKey,
+      "true"
+    );
+  }
+}
+
+if(
+  oldOrder &&
   Number(newOrder.pickupWaitingFee || 0) >
   Number(oldOrder.pickupWaitingFee || 0)
 ){

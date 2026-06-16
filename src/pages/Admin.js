@@ -2126,13 +2126,31 @@ async function changeAdminPassword(){
     );
 
   const totalRevenue =
-    deliveredOrders.reduce(
+  deliveredOrders.reduce(
 
-      (total,o)=>
-        total + Number(o.total || 0),
+    (total,o)=>
+      total + Number(o.total || 0),
 
-      0
-    );
+    0
+  );
+
+const waitingFeeRevenue =
+  deliveredOrders.reduce(
+
+    (total,o)=>
+      total + Number(o.pickupWaitingFee || 0),
+
+    0
+  );
+
+const totalWaitingMinutes =
+  deliveredOrders.reduce(
+
+    (total,o)=>
+      total + Number(o.pickupWaitingMinutes || 0),
+
+    0
+  );
 
   const deliveredPercent =
     totalOrders > 0
@@ -2482,6 +2500,7 @@ function clearRiderStatusFilters(){
       Total Revenue
     </StatTitle>
 
+  
     <StatValue>
       ₵{totalRevenue}
     </StatValue>
@@ -2491,6 +2510,20 @@ function clearRiderStatusFilters(){
     </StatSmall>
 
   </StatCard>
+
+  <StatCard>
+  <StatTitle>
+    Waiting Fee Revenue
+  </StatTitle>
+
+  <StatValue>
+    ₵{waitingFeeRevenue}
+  </StatValue>
+
+  <StatSmall>
+    Total waiting time: {totalWaitingMinutes} mins.
+  </StatSmall>
+</StatCard>
   <StatCard
     $active={activeAdminView === "total"}
     onClick={()=>
