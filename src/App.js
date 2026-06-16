@@ -38,7 +38,7 @@ function SplashScreen(){
           }
         );
 
-      },9000);
+      },7000);
 
     return ()=>{
 
@@ -57,7 +57,7 @@ function SplashScreen(){
         alignItems:"center",
         justifyContent:"center",
         background:
-        "linear-gradient(145deg,#020617 0%,#0f172a 46%,#1d4ed8 100%)",
+          "linear-gradient(145deg,#020617 0%,#0f172a 46%,#1d4ed8 100%)",
         overflow:"hidden",
         position:"relative",
         color:"white",
@@ -139,7 +139,7 @@ function SplashScreen(){
           borderRadius:"50%",
           background:"rgba(250,204,21,0.15)",
           filter:"blur(12px)",
-          animation:"loadFill 6.6s linear forwards"
+          animation:"glowPulse 3s ease-in-out infinite"
         }}
       />
 
@@ -179,7 +179,7 @@ function SplashScreen(){
           padding:"30px 22px",
           borderRadius:"36px",
           background:
-            "linear-gradient(145deg,rgba(255,255,255,0.15),rgba(255,255,255,0.05))",
+            "linear-gradient(145deg,rgba(255,255,255,0.18),rgba(255,255,255,0.06))",
           border:"1px solid rgba(250,204,21,0.32)",
           boxShadow:"0 30px 85px rgba(0,0,0,0.48)",
           animation:"splashEnter 0.7s ease-out forwards",
@@ -200,7 +200,7 @@ function SplashScreen(){
             overflow:"hidden",
             boxShadow:
               "0 24px 52px rgba(0,0,0,0.4), inset 0 6px 14px rgba(255,255,255,0.78)",
-            animation:"logoRotate3D 5s linear forwards",
+            animation:"logoRotate3D 7s ease-in-out forwards",
             transformStyle:"preserve-3d"
           }}
         >
@@ -220,8 +220,8 @@ function SplashScreen(){
             src={logo}
             alt="MB Swift"
             style={{
-              width:"136px",
-              height:"136px",
+              width:"145px",
+              height:"145px",
               objectFit:"contain",
               position:"relative",
               zIndex:2
@@ -245,11 +245,22 @@ function SplashScreen(){
           style={{
             color:"rgba(255,255,255,0.92)",
             fontSize:"14px",
-            fontWeight:"900",
-            marginBottom:"18px"
+            fontWeight:"900"
           }}
         >
           Driven by Speed, Powered by Trust.
+        </div>
+
+        <div
+          style={{
+            marginTop:"8px",
+            fontSize:"12px",
+            color:"#bfdbfe",
+            fontWeight:"800",
+            letterSpacing:"1px"
+          }}
+        >
+          ACCRA • GHANA
         </div>
 
         <div
@@ -265,6 +276,7 @@ function SplashScreen(){
             color:"#facc15",
             fontSize:"12px",
             fontWeight:"900",
+            marginTop:"18px",
             marginBottom:"20px"
           }}
         >
@@ -285,7 +297,7 @@ function SplashScreen(){
               height:"100%",
               borderRadius:"999px",
               background:"linear-gradient(90deg,#facc15,#f59e0b)",
-              animation:"loadFill 4.6s linear forwards"
+              animation:"loadFill 6.6s linear forwards"
             }}
           />
         </div>
@@ -317,8 +329,7 @@ function PrivateRoute({
 
     user =
       storedUser &&
-      storedUser !==
-      "undefined"
+      storedUser !== "undefined"
       ?
       JSON.parse(
         storedUser
