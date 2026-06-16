@@ -1,6 +1,5 @@
 import React,{
-  useEffect,
-  useState
+  useEffect
 } from "react";
 
 import {
@@ -12,19 +11,12 @@ import {
 } from "react-router-dom";
 
 import Login from "./pages/Login";
-
 import ForgotPassword from "./pages/ForgotPassword";
-
 import Register from "./pages/Register";
-
 import BecomeRider from "./pages/BecomeRider";
-
 import Customer from "./pages/Customer";
-
 import Rider from "./pages/Rider";
-
 import Admin from "./pages/Admin";
-
 import logo from "./assets/logo.png";
 
 // SPLASH SCREEN
@@ -34,73 +26,29 @@ function SplashScreen(){
   const navigate =
     useNavigate();
 
-  const [showText,setShowText] =
-    useState(false);
+  useEffect(()=>{
 
-    const [loadingText,setLoadingText] =
-  useState("Connecting customers...");
+    const routeTimer =
+      setTimeout(()=>{
 
-useEffect(()=>{
+        navigate(
+          "/login",
+          {
+            replace:true
+          }
+        );
 
-  const textTimer =
-    setTimeout(()=>{
+      },9000);
 
-      setShowText(true);
+    return ()=>{
 
-    },600);
+      clearTimeout(routeTimer);
 
-  const loadingTimer1 =
-    setTimeout(()=>{
+    };
 
-      setLoadingText(
-        "Finding nearby riders..."
-      );
-
-    },1800);
-
-  const loadingTimer2 =
-    setTimeout(()=>{
-
-      setLoadingText(
-        "Preparing fast delivery..."
-      );
-
-    },3200);
-
-  const loadingTimer3 =
-    setTimeout(()=>{
-
-      setLoadingText(
-        "Ready to move 🚀"
-      );
-
-    },4500);
-
-  const routeTimer =
-    setTimeout(()=>{
-
-      navigate(
-        "/login",
-        {
-          replace:true
-        }
-      );
-
-    },5500);
-
-  return ()=>{
-
-    clearTimeout(textTimer);
-    clearTimeout(loadingTimer1);
-    clearTimeout(loadingTimer2);
-    clearTimeout(loadingTimer3);
-    clearTimeout(routeTimer);
-  };
-
-},[navigate]);
+  },[navigate]);
 
   return(
-
     <div
       style={{
         minHeight:"100vh",
@@ -109,119 +57,115 @@ useEffect(()=>{
         alignItems:"center",
         justifyContent:"center",
         background:
-          "radial-gradient(circle at top right, rgba(250,204,21,0.35), transparent 32%), linear-gradient(135deg,#0f172a,#1d4ed8)",
+        "linear-gradient(145deg,#020617 0%,#0f172a 46%,#1d4ed8 100%)",
         overflow:"hidden",
         position:"relative",
-        color:"white"
+        color:"white",
+        perspective:"1200px"
       }}
     >
-
       <style>
         {`
-          @keyframes mbFloat {
-            0%{
-              transform:translateY(0) scale(1);
-            }
-
-            50%{
-              transform:translateY(-10px) scale(1.04);
-            }
-
-            100%{
-              transform:translateY(0) scale(1);
-            }
-          }
-
-          @keyframes mbFadeUp {
+          @keyframes splashEnter {
             0%{
               opacity:0;
-              transform:translateY(18px);
+              transform:translateY(32px) scale(0.86);
             }
 
             100%{
               opacity:1;
-              transform:translateY(0);
+              transform:translateY(0) scale(1);
             }
           }
 
-          @keyframes mbPulse {
+          @keyframes logoRotate3D {
             0%{
-              transform:scale(0.92);
-              opacity:0.35;
+              transform:rotateY(0deg);
+            }
+
+            100%{
+              transform:rotateY(360deg);
+            }
+          }
+
+          @keyframes shineMove {
+            0%{
+              transform:translateX(-170%) rotate(22deg);
+            }
+
+            100%{
+              transform:translateX(170%) rotate(22deg);
+            }
+          }
+
+          @keyframes loadFill {
+            0%{
+              width:0%;
+            }
+
+            100%{
+              width:100%;
+            }
+          }
+
+          @keyframes glowPulse {
+            0%,100%{
+              opacity:0.45;
+              transform:scale(1);
             }
 
             50%{
-              transform:scale(1.2);
-              opacity:0.12;
-            }
-
-            100%{
-              transform:scale(0.92);
-              opacity:0.35;
+              opacity:0.8;
+              transform:scale(1.08);
             }
           }
-
-          @keyframes mbSlide {
-            0%{
-              transform:translateX(-100%);
-            }
-
-            100%{
-              transform:translateX(100%);
-            }
-          }
-        
-
-        @keyframes mbSlide {
-  0%{
-    transform:translateX(-100%);
-  }
-
-  100%{
-    transform:translateX(100%);
-  }
-}
-
-@keyframes deliveryMove {
-  0%{
-    transform:translateX(-90px);
-    opacity:0;
-  }
-
-  20%{
-    opacity:1;
-  }
-
-  80%{
-    opacity:1;
-  }
-
-  100%{
-    transform:translateX(90px);
-    opacity:0;
-  }
-}
-`}
+        `}
       </style>
-
-      <div
-        style={{
-          position:"absolute",
-          width:"260px",
-          height:"260px",
-          borderRadius:"50%",
-          background:"rgba(250,204,21,0.20)",
-          animation:"mbPulse 2.2s ease-in-out infinite"
-        }}
-      />
 
       <div
         style={{
           position:"absolute",
           inset:0,
           background:
-            "linear-gradient(120deg, transparent, rgba(255,255,255,0.12), transparent)",
-          animation:"mbSlide 2.8s ease-in-out infinite"
+            "radial-gradient(circle at 50% 23%, rgba(250,204,21,0.24), transparent 34%)"
+        }}
+      />
+
+      <div
+        style={{
+          position:"absolute",
+          width:"340px",
+          height:"340px",
+          borderRadius:"50%",
+          background:"rgba(250,204,21,0.15)",
+          filter:"blur(12px)",
+          animation:"loadFill 6.6s linear forwards"
+        }}
+      />
+
+      <div
+        style={{
+          position:"absolute",
+          top:"12%",
+          left:"8%",
+          width:"80px",
+          height:"80px",
+          borderRadius:"26px",
+          background:"rgba(255,255,255,0.055)",
+          transform:"rotate(18deg)"
+        }}
+      />
+
+      <div
+        style={{
+          position:"absolute",
+          bottom:"12%",
+          right:"8%",
+          width:"110px",
+          height:"110px",
+          borderRadius:"34px",
+          background:"rgba(250,204,21,0.08)",
+          transform:"rotate(-18deg)"
         }}
       />
 
@@ -229,131 +173,123 @@ useEffect(()=>{
         style={{
           position:"relative",
           zIndex:2,
+          width:"88%",
+          maxWidth:"380px",
           textAlign:"center",
-          padding:"24px",
-          animation:"mbFadeUp 0.9s ease forwards"
+          padding:"30px 22px",
+          borderRadius:"36px",
+          background:
+            "linear-gradient(145deg,rgba(255,255,255,0.15),rgba(255,255,255,0.05))",
+          border:"1px solid rgba(250,204,21,0.32)",
+          boxShadow:"0 30px 85px rgba(0,0,0,0.48)",
+          animation:"splashEnter 0.7s ease-out forwards",
+          backdropFilter:"blur(10px)"
         }}
       >
-
-        <img
-          src={logo}
-          alt="MB Swift"
+        <div
           style={{
-            width:"150px",
-            height:"150px",
-            objectFit:"contain",
-            background:"white",
-            padding:"10px",
-            borderRadius:"50%",
-            boxShadow:"0 18px 45px rgba(0,0,0,0.28)",
-            animation:"mbFloat 2.1s ease-in-out infinite"
+            width:"176px",
+            height:"176px",
+            margin:"0 auto",
+            borderRadius:"42px",
+            background:"linear-gradient(145deg,#ffffff,#dbeafe)",
+            display:"flex",
+            alignItems:"center",
+            justifyContent:"center",
+            position:"relative",
+            overflow:"hidden",
+            boxShadow:
+              "0 24px 52px rgba(0,0,0,0.4), inset 0 6px 14px rgba(255,255,255,0.78)",
+            animation:"logoRotate3D 5s linear forwards",
+            transformStyle:"preserve-3d"
           }}
-        />
+        >
+          <div
+            style={{
+              position:"absolute",
+              top:"-48%",
+              left:"-75%",
+              width:"76px",
+              height:"280px",
+              background:"rgba(255,255,255,0.68)",
+              animation:"shineMove 2.4s ease-in-out infinite"
+            }}
+          />
 
-        {
-          showText && (
+          <img
+            src={logo}
+            alt="MB Swift"
+            style={{
+              width:"136px",
+              height:"136px",
+              objectFit:"contain",
+              position:"relative",
+              zIndex:2
+            }}
+          />
+        </div>
 
-            <div
-              style={{
-                animation:"mbFadeUp 0.8s ease forwards"
-              }}
-            >
+        <h1
+          style={{
+            margin:"24px 0 6px",
+            fontSize:"40px",
+            fontWeight:"900",
+            color:"#facc15",
+            letterSpacing:"0.4px"
+          }}
+        >
+          MB Swift
+        </h1>
 
-              <h1
-                style={{
-                  margin:"22px 0 8px",
-                  fontSize:"34px",
-                  fontWeight:"900",
-                  color:"#facc15",
-                  letterSpacing:"0.5px"
-                }}
-              >
-                MB Swift
-              </h1>
+        <div
+          style={{
+            color:"rgba(255,255,255,0.92)",
+            fontSize:"14px",
+            fontWeight:"900",
+            marginBottom:"18px"
+          }}
+        >
+          Driven by Speed, Powered by Trust.
+        </div>
 
-              <div
-                style={{
-                  color:"rgba(255,255,255,0.90)",
-                  fontSize:"15px",
-                  fontWeight:"800"
-                }}
-              >
-                Driven by Speed, Powered by Trust.
-              </div>
-              <div
-  style={{
-    marginTop:"14px",
-    color:"#facc15",
-    fontSize:"14px",
-    fontWeight:"900",
-    letterSpacing:"0.4px"
-  }}
->
-  {loadingText}
-</div>
+        <div
+          style={{
+            display:"inline-flex",
+            alignItems:"center",
+            justifyContent:"center",
+            gap:"8px",
+            padding:"8px 14px",
+            borderRadius:"999px",
+            background:"rgba(250,204,21,0.14)",
+            border:"1px solid rgba(250,204,21,0.36)",
+            color:"#facc15",
+            fontSize:"12px",
+            fontWeight:"900",
+            marginBottom:"20px"
+          }}
+        >
+          🚀 Fast • Secure • Reliable
+        </div>
 
-<div
-  style={{
-    margin:"18px auto 0",
-    width:"220px",
-    height:"34px",
-    position:"relative",
-    overflow:"hidden"
-  }}
->
-  <div
-    style={{
-      position:"absolute",
-      left:"50%",
-      top:"50%",
-      width:"180px",
-      height:"3px",
-      background:"rgba(250,204,21,0.35)",
-      transform:"translate(-50%,-50%)",
-      borderRadius:"999px"
-    }}
-  />
-
-  <div
-    style={{
-      position:"absolute",
-      left:"50%",
-      top:"2px",
-      fontSize:"24px",
-      animation:"deliveryMove 2.2s ease-in-out infinite"
-    }}
-  >
-    📦🏍️
-  </div>
-</div>
-
-              <div
-                style={{
-                  margin:"22px auto 0",
-                  width:"180px",
-                  height:"8px",
-                  borderRadius:"999px",
-                  background:"rgba(255,255,255,0.18)",
-                  overflow:"hidden"
-                }}
-              >
-                <div
-                  style={{
-                    width:"65%",
-                    height:"100%",
-                    borderRadius:"999px",
-                    background:"#facc15",
-                    animation:"mbSlide 1.3s ease-in-out infinite"
-                  }}
-                />
-              </div>
-
-            </div>
-          )
-        }
-
+        <div
+          style={{
+            width:"100%",
+            height:"9px",
+            borderRadius:"999px",
+            background:"rgba(255,255,255,0.16)",
+            overflow:"hidden"
+          }}
+        >
+          <div
+            style={{
+              height:"100%",
+              borderRadius:"999px",
+              background:"linear-gradient(90deg,#facc15,#f59e0b)",
+              animation:"loadFill 4.6s linear forwards"
+            }}
+          />
+        </div>
       </div>
-
     </div>
   );
 }
@@ -361,10 +297,8 @@ useEffect(()=>{
 // PRIVATE ROUTE
 
 function PrivateRoute({
-
   children,
   role
-
 }){
 
   const token =
@@ -405,7 +339,7 @@ function PrivateRoute({
 
   if(!token){
 
-    return (
+    return(
       <Navigate to="/login"/>
     );
   }
@@ -415,7 +349,7 @@ function PrivateRoute({
     user?.role !== role
   ){
 
-    return (
+    return(
       <Navigate to="/login"/>
     );
   }
@@ -428,133 +362,85 @@ function PrivateRoute({
 export default function App(){
 
   return(
-
     <BrowserRouter>
-
       <Routes>
 
-        {/* SPLASH */}
-
         <Route
-
           path="/"
-
           element={
             <SplashScreen/>
           }
         />
 
-        {/* LOGIN */}
-
         <Route
-
           path="/login"
-
           element={
             <Login/>
           }
         />
 
-        {/* FORGOT PASSWORD */}
-
         <Route
-
           path="/forgot-password"
-
           element={
             <ForgotPassword/>
           }
         />
 
-        {/* REGISTER */}
-
         <Route
-
           path="/register"
-
           element={
             <Register/>
           }
         />
 
-        {/* BECOME RIDER */}
-
         <Route
-
           path="/become-rider"
-
           element={
             <BecomeRider/>
           }
         />
 
-        {/* CUSTOMER */}
-
         <Route
-
           path="/customer"
-
           element={
-
             <PrivateRoute
               role="customer"
             >
-
               <Customer/>
-
             </PrivateRoute>
           }
         />
 
-        {/* RIDER */}
-
         <Route
-
           path="/rider"
-
           element={
-
             <PrivateRoute
               role="rider"
             >
-
               <Rider/>
-
             </PrivateRoute>
           }
         />
 
-        {/* ADMIN */}
-
         <Route
-
           path="/admin"
-
           element={
-
             <PrivateRoute
               role="admin"
             >
-
               <Admin/>
-
             </PrivateRoute>
           }
         />
 
-        {/* FALLBACK */}
-
         <Route
-
           path="*"
-
           element={
             <Navigate to="/login"/>
           }
         />
 
       </Routes>
-
     </BrowserRouter>
   );
 }
