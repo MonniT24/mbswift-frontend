@@ -3876,13 +3876,31 @@ function clearRiderStatusFilters(){
             }
             <br />
 
-            <strong>Status:</strong>{" "}
-            {o.status || "N/A"}
-            <br />
+          <strong>Status:</strong>{" "}
+{o.status || "N/A"}
+<br />
 
-            <strong>Amount:</strong>{" "}
-            ₵{o.total || 0}
+<strong>Amount:</strong>{" "}
+₵{o.total || 0}
+<br />
 
+{o.riderArrivedAtPickup && (
+  <>
+    <strong>Waiting Time:</strong>{" "}
+    {o.pickupWaitingEndedAt
+      ? `${o.pickupWaitingMinutes || 0} minutes`
+      : "Rider is waiting at pickup"}
+    <br />
+  </>
+)}
+
+{Number(o.pickupWaitingFee || 0) > 0 && (
+  <>
+    <strong>Waiting Fee:</strong>{" "}
+    ₵{o.pickupWaitingFee}
+    <br />
+  </>
+)}
             {
               activeAdminView === "fraud" && (
                 <>

@@ -4774,6 +4774,30 @@ async function sendSupportMessage(){
   }
 }
 
+if(
+  oldOrder &&
+  newOrder.riderArrivedAtPickup &&
+  !oldOrder.riderArrivedAtPickup
+){
+  addCustomerNotification(
+    "Rider Waiting at Pickup",
+    "Your rider has arrived at the pickup location. Waiting fee may apply after 5 minutes.",
+    "info"
+  );
+}
+
+if(
+  oldOrder &&
+  Number(newOrder.pickupWaitingFee || 0) >
+  Number(oldOrder.pickupWaitingFee || 0)
+){
+  addCustomerNotification(
+    "Waiting Fee Added",
+    `A waiting fee of ₵${newOrder.pickupWaitingFee || 0} has been added because the rider waited at pickup.`,
+    "info"
+  );
+}
+
       });
 
       return newOrders;

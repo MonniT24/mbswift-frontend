@@ -217,8 +217,26 @@ function getDropoffPosition(order){
                   : o.deliveryTime || "Not available"}
               </Row>
 
-              <Row><strong>Amount:</strong> ₵{o.total}</Row>
-              <Row><strong>Payment:</strong> {o.isPaid ? "Paid" : "Not Paid"}</Row>
+              <Row>
+  <strong>Amount:</strong> ₵{o.total}
+</Row>
+
+{o.riderArrivedAtPickup && (
+  <Row>
+    <strong>Rider Waiting:</strong>{" "}
+    {o.pickupWaitingEndedAt
+      ? `${o.pickupWaitingMinutes || 0} minutes`
+      : "Rider is waiting at pickup"}
+  </Row>
+)}
+
+{Number(o.pickupWaitingFee || 0) > 0 && (
+  <Row>
+    <strong>Waiting Fee:</strong>{" "}
+    ₵{o.pickupWaitingFee}
+  </Row>
+)}
+ <Row><strong>Payment:</strong> {o.isPaid ? "Paid" : "Not Paid"}</Row>
 
               <StatusBadge status={o.status}>
                 {o.status}

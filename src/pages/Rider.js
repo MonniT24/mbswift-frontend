@@ -4317,49 +4317,80 @@ user?.status !== "busy" && (
   )
 }
 
+
               {
                 o.status === "accepted" && (
 
                   <ButtonRow>
 
-                  <Button
-  onClick={()=>
+              {!o.riderArrivedAtPickup && (
+  <Button
+    onClick={()=>
+      arrivedAtPickup(
+        o._id
+      )
+    }
+    style={{
+      background:
+        "linear-gradient(135deg,#f59e0b,#facc15)",
+      color:"#0f172a",
+      fontWeight:"900",
+      marginBottom:"8px"
+    }}
+  >
+    📍 Arrived at Pickup
+  </Button>
+)}
 
-    arrivedAtPickup(
-      o._id
-    )
-  }
+{o.riderArrivedAtPickup && (
+  <>
+    <div
   style={{
-    background:
-      "linear-gradient(135deg,#f59e0b,#facc15)",
-    color:"#0f172a",
+    width:"100%",
+    marginBottom:"8px",
+    padding:"10px",
+    borderRadius:"12px",
+    background:"#fef3c7",
+    color:"#92400e",
     fontWeight:"900",
-    marginBottom:"8px"
+    textAlign:"center"
   }}
 >
-
-  📍 Arrived at Pickup
-
-</Button>
-
-<Button
-  onClick={()=>
-
-    pickupOrder(
-      o._id
+  📍 Arrived at pickup. Waiting timer is active.
+<br />
+Waiting Time: {
+  o.pickupWaitingStartedAt
+  ? Math.max(
+      0,
+      Math.floor(
+        (
+          currentTime.getTime() -
+          new Date(o.pickupWaitingStartedAt).getTime()
+        ) / 60000
+      )
     )
-  }
-  style={{
-    background:
-      "linear-gradient(135deg, #0f172a, #1d4ed8)",
-    color:"#facc15",
-    fontWeight:"900"
-  }}
->
+  : 0
+} mins
+</div>
 
-  Item Picked
+    <Button
+      onClick={()=>
+        pickupOrder(
+          o._id
+        )
+      }
+      style={{
+        background:
+          "linear-gradient(135deg, #0f172a, #1d4ed8)",
+        color:"#facc15",
+        fontWeight:"900"
+      }}
+    >
+      Confirm Item Picked
+    </Button>
+  </>
+)}
 
-</Button>
                   </ButtonRow>
                 )
               }
@@ -4881,32 +4912,68 @@ user?.status !== "busy" && (
 
 </div>
 
-            {
-              order.status === "accepted" && (
+{
+  order.status === "accepted" && (
 
-                <ButtonRow>
+    <ButtonRow>
 
-                  <Button
-                    onClick={()=>
+      {!order.riderArrivedAtPickup && (
+        <Button
+          onClick={()=>
+            arrivedAtPickup(
+              order._id
+            )
+          }
+          style={{
+            background:
+              "linear-gradient(135deg,#f59e0b,#facc15)",
+            color:"#0f172a",
+            fontWeight:"900"
+          }}
+        >
+          📍 Arrived at Pickup
+        </Button>
+      )}
 
-                      pickupOrder(
-                        order._id
-                      )
-                    }
-                    style={{
-                      background:
-                        "linear-gradient(135deg, #0f172a, #1d4ed8)",
-                      color:"#facc15",
-                      fontWeight:"900"
-                    }}
-                  >
-                    Item Picked
-                  </Button>
+      {order.riderArrivedAtPickup && (
+        <>
+          <div
+            style={{
+              width:"100%",
+              marginBottom:"8px",
+              padding:"10px",
+              borderRadius:"12px",
+              background:"#fef3c7",
+              color:"#92400e",
+              fontWeight:"900",
+              textAlign:"center"
+            }}
+          >
+            📍 Arrived at pickup. Waiting timer is active.
+          </div>
 
-                </ButtonRow>
+          <Button
+            onClick={()=>
+              pickupOrder(
+                order._id
               )
             }
+            style={{
+              background:
+                "linear-gradient(135deg,#0f172a,#1d4ed8)",
+              color:"#facc15",
+              fontWeight:"900"
+            }}
+          >
+            Confirm Item Picked
+          </Button>
+        </>
+      )}
 
+    </ButtonRow>
+  )
+}
+  
             {
               order.status === "picked" && (
 
