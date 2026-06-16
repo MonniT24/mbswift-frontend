@@ -2295,6 +2295,47 @@ async function rejectOrder(orderId){
   }
 }
 
+// ARRIVED AT PICKUP
+
+async function arrivedAtPickup(
+  orderId
+){
+
+  try{
+
+    if(riderIsBlocked){
+
+      alert(
+        riderBlockedMessage
+      );
+
+      return;
+    }
+
+    await API.put(
+      `/orders/${orderId}`,
+      {
+        riderArrivedAtPickup:true
+      }
+    );
+
+    alert(
+      "Waiting timer started"
+    );
+
+    fetchOrders();
+
+  }catch(err){
+
+    console.log(err);
+
+    alert(
+      err.response?.data?.message ||
+      "Failed to start waiting timer"
+    );
+  }
+}
+
   //PICKUP
 
   async function pickupOrder(
@@ -3945,6 +3986,49 @@ const res =
 
              {o.distance} km
 
+            {o.riderArrivedAtPickup && (
+
+  <div
+    style={{
+      marginTop:"10px",
+      marginBottom:"10px",
+      padding:"11px",
+      borderRadius:"14px",
+      background:"#fef3c7",
+      border:"1px solid #facc15",
+      color:"#78350f"
+    }}
+  >
+    <div
+      style={{
+        fontWeight:"900",
+        marginBottom:"4px"
+      }}
+    >
+      ⏱ Waiting Timer Active
+    </div>
+
+    <div
+      style={{
+        fontSize:"13px",
+        fontWeight:"800"
+      }}
+    >
+      Free waiting time: 5 minutes
+    </div>
+
+    <div
+      style={{
+        fontSize:"13px",
+        fontWeight:"800"
+      }}
+    >
+      Waiting Fee: ₵{o.pickupWaitingFee || 0}
+    </div>
+
+  </div>
+)} 
+
               {
                 o.customer && (
 
@@ -4238,25 +4322,44 @@ user?.status !== "busy" && (
 
                   <ButtonRow>
 
-                    <Button
-                      onClick={()=>
+                  <Button
+  onClick={()=>
 
-                        pickupOrder(
-                          o._id
-                        )
-                      }
-                      style={{
-                        background:
-                          "linear-gradient(135deg, #0f172a, #1d4ed8)",
-                        color:"#facc15",
-                        fontWeight:"900"
-                      }}
-                    >
+    arrivedAtPickup(
+      o._id
+    )
+  }
+  style={{
+    background:
+      "linear-gradient(135deg,#f59e0b,#facc15)",
+    color:"#0f172a",
+    fontWeight:"900",
+    marginBottom:"8px"
+  }}
+>
 
-                      Item Picked
+  📍 Arrived at Pickup
 
-                    </Button>
+</Button>
 
+<Button
+  onClick={()=>
+
+    pickupOrder(
+      o._id
+    )
+  }
+  style={{
+    background:
+      "linear-gradient(135deg, #0f172a, #1d4ed8)",
+    color:"#facc15",
+    fontWeight:"900"
+  }}
+>
+
+  Item Picked
+
+</Button>
                   </ButtonRow>
                 )
               }
