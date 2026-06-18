@@ -220,8 +220,8 @@ function SplashScreen(){
             src={logo}
             alt="MB Swift"
             style={{
-              width:"145px",
-              height:"145px",
+              width:"150px",
+              height:"150px",
               objectFit:"contain",
               position:"relative",
               zIndex:2
