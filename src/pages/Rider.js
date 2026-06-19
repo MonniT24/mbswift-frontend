@@ -1365,24 +1365,34 @@ const [previousMessages,
   setPreviousMessages] =
     useState({});
 
-    const getGreeting = () => {
-
-      const getRiderDisplayStatus = () => {
+const getRiderDisplayStatus = () => {
 
   if(riderIsBlocked){
-
     return "suspended";
   }
 
-  if(
-    activeOrders.length > 0
-  ){
-
+  if(activeOrders.length > 0){
     return "busy";
   }
 
   return user?.status || "available";
 };
+
+function getGreeting(){
+
+  const hour =
+    new Date().getHours();
+
+  if(hour < 12){
+    return "Good morning";
+  }
+
+  if(hour < 18){
+    return "Good afternoon";
+  }
+
+  return "Good evening";
+}   
 
 function getRiderCardTitle(){
 
@@ -1420,37 +1430,6 @@ function getRiderCardOrders(){
 
 const riderCardOrders =
   getRiderCardOrders();
-
-  const hour =
-    new Date().getHours();
-
-  if(hour < 12){
-
-    return "Good morning";
-
-  }
-
-  if(hour < 18){
-
-    return "Good afternoon";
-
-  }
-
-  return "Good evening";
-
-};
-
-const getRiderDisplayStatus = () => {
-
-  if(
-    activeOrders.length > 0
-  ){
-
-    return "busy";
-  }
-
-  return user?.status || "available";
-};
 
 useEffect(()=>{
 
@@ -3021,6 +3000,8 @@ const res =
 
   </DashboardHero>
 
+  
+
  {riderPage === "home" && (
 
 <StatsGrid style={{gap:"12px"}}>
@@ -3115,13 +3096,80 @@ const res =
       }}
     >
       {
-        riderPage === "activeDeliveries"
+        riderPage === "pendingRequests"
+        ? "Pending Requests"
+        : riderPage === "activeDeliveries"
         ? "Active Deliveries"
         : riderPage === "completedDeliveries"
         ? "Completed Deliveries"
         : "Total Earnings"
       }
     </h2>
+
+    {
+      riderPage === "pendingRequests" && (
+        pendingRequestOrders.length === 0
+        ? (
+          <Empty>
+            No pending delivery requests found.
+          </Empty>
+        )
+        : (
+          <DetailList>
+            {
+              pendingRequestOrders.map((o)=>(
+                <Row key={o._id}>
+                  <strong>Customer:</strong>{" "}
+                  {o.customer?.name || "Customer"}
+                  <br />
+
+                  <strong>Pickup:</strong>{" "}
+                  {o.pickupLocation || "N/A"}
+                  <br />
+
+                  <strong>Dropoff:</strong>{" "}
+                  {o.dropoffLocation || "N/A"}
+                  <br />
+
+                  <strong>Amount:</strong>{" "}
+                  ₵{o.total || 0}
+                  <br />
+
+                  <strong>Status:</strong>{" "}
+                  {o.status || "pending"}
+
+                  <ButtonRow>
+                    <Button
+                      type="button"
+                      onClick={()=>
+                        acceptOrder(o._id)
+                      }
+                      style={{
+                        background:"#16a34a"
+                      }}
+                    >
+                      Accept
+                    </Button>
+
+                    <Button
+                      type="button"
+                      onClick={()=>
+                        rejectOrder(o._id)
+                      }
+                      style={{
+                        background:"#dc2626"
+                      }}
+                    >
+                      Reject
+                    </Button>
+                  </ButtonRow>
+                </Row>
+              ))
+            }
+          </DetailList>
+        )
+      )
+    }
 
     {
       riderPage === "activeDeliveries" && (
@@ -3133,68 +3181,69 @@ const res =
         )
         : (
           <DetailList>
-           {
-  activeOrders.map((o)=>{
+            {
+              activeOrders.map((o)=>{
 
-    const pickupCoords =
-      o.pickupCoords ||
-      (
-        o.pickupLatitude &&
-        o.pickupLongitude
-        ? {
-            lat:Number(o.pickupLatitude),
-            lng:Number(o.pickupLongitude)
-          }
-        : null
-      );
+                const pickupCoords =
+                  o.pickupCoords ||
+                  (
+                    o.pickupLatitude &&
+                    o.pickupLongitude
+                    ? {
+                        lat:Number(o.pickupLatitude),
+                        lng:Number(o.pickupLongitude)
+                      }
+                    : null
+                  );
 
-    const dropoffCoords =
-      o.dropoffCoords ||
-      (
-        o.dropoffLatitude &&
-        o.dropoffLongitude
-        ? {
-            lat:Number(o.dropoffLatitude),
-            lng:Number(o.dropoffLongitude)
-          }
-        : null
-      );
+                const dropoffCoords =
+                  o.dropoffCoords ||
+                  (
+                    o.dropoffLatitude &&
+                    o.dropoffLongitude
+                    ? {
+                        lat:Number(o.dropoffLatitude),
+                        lng:Number(o.dropoffLongitude)
+                      }
+                    : null
+                  );
 
-    return (
+                return (
+                  <Row key={o._id}>
+                    <strong>Pickup:</strong>{" "}
+                    {o.pickupLocation}
+                    <br />
 
-      <Row key={o._id}>
+                    <strong>Dropoff:</strong>{" "}
+                    {o.dropoffLocation}
+                    <br />
 
-        <strong>Pickup:</strong> {o.pickupLocation}
-        <br />
+                    <strong>Status:</strong>{" "}
+                    {o.status}
+                    <br />
 
-        <strong>Dropoff:</strong> {o.dropoffLocation}
-        <br />
+                    <strong>Amount:</strong>{" "}
+                    ₵{o.total || 0}
 
-        <strong>Status:</strong> {o.status}
-        <br />
-
-        <strong>Amount:</strong> ₵{o.total || 0}
-
-        <div
-          style={{
-            marginTop:"14px"
-          }}
-        >
-          <GoogleLiveMap
-            pickupCoords={pickupCoords}
-            dropoffCoords={dropoffCoords}
-            mode={
-              o.status === "accepted"
-              ? "pickup"
-              : "dropoff"
+                    <div
+                      style={{
+                        marginTop:"14px"
+                      }}
+                    >
+                      <GoogleLiveMap
+                        pickupCoords={pickupCoords}
+                        dropoffCoords={dropoffCoords}
+                        mode={
+                          o.status === "accepted"
+                          ? "pickup"
+                          : "dropoff"
+                        }
+                      />
+                    </div>
+                  </Row>
+                );
+              })
             }
-          />
-        </div>
-
-      </Row>
-    );
-  })
-}
           </DetailList>
         )
       )
@@ -3213,13 +3262,20 @@ const res =
             {
               completedOrders.map((o)=>(
                 <Row key={o._id}>
-                  <strong>Pickup:</strong> {o.pickupLocation}
+                  <strong>Pickup:</strong>{" "}
+                  {o.pickupLocation}
                   <br />
-                  <strong>Dropoff:</strong> {o.dropoffLocation}
+
+                  <strong>Dropoff:</strong>{" "}
+                  {o.dropoffLocation}
                   <br />
-                  <strong>Amount:</strong> ₵{o.total || 0}
+
+                  <strong>Amount:</strong>{" "}
+                  ₵{o.total || 0}
                   <br />
-                  <strong>Status:</strong> {o.status}
+
+                  <strong>Status:</strong>{" "}
+                  {o.status}
                 </Row>
               ))
             }
@@ -3230,7 +3286,6 @@ const res =
 
     {
       riderPage === "earnings" && (
-
         <div
           style={{
             background:"#0f172a",
@@ -3351,47 +3406,97 @@ const res =
     e.currentTarget.style.boxShadow =
       "none";
   }}
-  onClick={()=>
-   setRiderPage("pending")
-  }
+onClick={()=>
+  setRiderPage("pendingRequests")
+}
+  style={{
+    background:"#eff6ff",
+    border:
+  riderPage === "pendingRequests"
+  ? "2px solid #2563eb"
+  : "1px solid #dbeafe",
+    borderRadius:"18px",
+    padding:"16px",
+    cursor:"pointer",
+    textAlign:"left",
+    transition:"0.25s ease"
+  }}
+>
+  <div
     style={{
-      background:"#eff6ff",
-      border:
-        activeRiderCard === "pending"
-        ? "2px solid #2563eb"
-        : "1px solid #dbeafe",
-      borderRadius:"18px",
-      padding:"16px",
-      cursor:"pointer",
-      textAlign:"left",
-      transition:"0.25s ease"
+      color:"#1d4ed8",
+      fontWeight:"900",
+      fontSize:"13px",
+      marginBottom:"8px"
     }}
   >
+    Pending Requests
+  </div>
 
-    <div
-      style={{
-        color:"#1d4ed8",
-        fontWeight:"900",
-        fontSize:"13px",
-        marginBottom:"8px"
-      }}
-    >
-      Pending Requests
-    </div>
+  <div
+    style={{
+      color:"#0f172a",
+      fontWeight:"900",
+      fontSize:"30px"
+    }}
+  >
+    {pendingRequestOrders.length}
+  </div>
+</button>
 
-    <div
-      style={{
-        color:"#0f172a",
-        fontWeight:"900",
-        fontSize:"30px"
-      }}
-    >
-      {pendingRequestOrders.length}
-    </div>
+<button
+  type="button"
+  onMouseEnter={(e)=>{
+    e.currentTarget.style.transform =
+      "translateY(-5px)";
+    e.currentTarget.style.boxShadow =
+      "0 14px 28px rgba(15,23,42,0.12)";
+  }}
+  onMouseLeave={(e)=>{
+    e.currentTarget.style.transform =
+      "translateY(0)";
+    e.currentTarget.style.boxShadow =
+      "none";
+  }}
+onClick={()=>
+  setRiderPage("activeDeliveries")
+}
+  style={{
+    background:"#fefce8",
+   border:
+  riderPage === "activeDeliveries"
+  ? "2px solid #f59e0b"
+  : "1px solid #fde68a",
+    borderRadius:"18px",
+    padding:"16px",
+    cursor:"pointer",
+    textAlign:"left",
+    transition:"0.25s ease"
+  }}
+>
+  <div
+    style={{
+      color:"#92400e",
+      fontWeight:"900",
+      fontSize:"13px",
+      marginBottom:"8px"
+    }}
+  >
+    Active Jobs
+  </div>
 
-  </button>
+  <div
+    style={{
+      color:"#0f172a",
+      fontWeight:"900",
+      fontSize:"30px"
+    }}
+  >
+    {activeOrders.length}
+  </div>
+</button>
 
-  <button
+<button
   type="button"
   onMouseEnter={(e)=>{
     e.currentTarget.style.transform =
@@ -3406,98 +3511,42 @@ const res =
       "none";
   }}
  onClick={()=>
-  setRiderPage("active")
+  setRiderPage("completedDeliveries")
 }
+  style={{
+    background:"#f0fdf4",
+    border:
+  riderPage === "completedDeliveries"
+  ? "2px solid #16a34a"
+  : "1px solid #bbf7d0",
+    borderRadius:"18px",
+    padding:"16px",
+    cursor:"pointer",
+    textAlign:"left",
+    transition:"0.25s ease"
+  }}
+>
+  <div
     style={{
-      background:"#fefce8",
-      border:
-        activeRiderCard === "active"
-        ? "2px solid #f59e0b"
-        : "1px solid #fde68a",
-      borderRadius:"18px",
-      padding:"16px",
-      cursor:"pointer",
-      textAlign:"left",
-      transition:"0.25s ease"
+      color:"#166534",
+      fontWeight:"900",
+      fontSize:"13px",
+      marginBottom:"8px"
     }}
   >
+    Completed Tasks
+  </div>
 
-    <div
-      style={{
-        color:"#92400e",
-        fontWeight:"900",
-        fontSize:"13px",
-        marginBottom:"8px"
-      }}
-    >
-      Active Jobs
-    </div>
-
-    <div
-      style={{
-        color:"#0f172a",
-        fontWeight:"900",
-        fontSize:"30px"
-      }}
-    >
-      {activeOrders.length}
-    </div>
-
-  </button>
-
-  <button
-  type="button"
-  onMouseEnter={(e)=>{
-    e.currentTarget.style.transform =
-      "translateY(-5px)";
-    e.currentTarget.style.boxShadow =
-      "0 14px 28px rgba(15,23,42,0.12)";
-  }}
-  onMouseLeave={(e)=>{
-    e.currentTarget.style.transform =
-      "translateY(0)";
-    e.currentTarget.style.boxShadow =
-      "none";
-  }}
-  onClick={()=>
-  setRiderPage("completed")
-}
+  <div
     style={{
-      background:"#f0fdf4",
-      border:
-        activeRiderCard === "completed"
-        ? "2px solid #16a34a"
-        : "1px solid #bbf7d0",
-      borderRadius:"18px",
-      padding:"16px",
-      cursor:"pointer",
-      textAlign:"left",
-      transition:"0.25s ease"
+      color:"#0f172a",
+      fontWeight:"900",
+      fontSize:"30px"
     }}
   >
-
-    <div
-      style={{
-        color:"#166534",
-        fontWeight:"900",
-        fontSize:"13px",
-        marginBottom:"8px"
-      }}
-    >
-      Completed Tasks
-    </div>
-
-    <div
-      style={{
-        color:"#0f172a",
-        fontWeight:"900",
-        fontSize:"30px"
-      }}
-    >
-      {completedOrders.length}
-    </div>
-
-  </button>
+    {completedOrders.length}
+  </div>
+</button>
 
 </div>
 
