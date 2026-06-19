@@ -2435,20 +2435,6 @@ async function arrivedAtPickup(
         orderId
       );
 
-     const deliveryPhoto =
-  deliveryPhotos[orderId];
-
-if(!deliveryPhoto){
-
-  alert(
-    "Please take or upload a delivery proof photo"
-  );
-
-  setCompletingOrderId(null);
-
-  return;
-}
-
 const position =
   await new Promise((resolve,reject)=>{
 
@@ -2457,7 +2443,7 @@ const position =
       reject,
       {
         enableHighAccuracy:true,
-        timeout:15000,
+       timeout:30000,
         maximumAge:0
       }
     );
@@ -2479,11 +2465,6 @@ formData.append(
 formData.append(
   "deliveryLongitude",
   position.coords.longitude
-);
-
-formData.append(
-  "deliveryPhoto",
-  deliveryPhoto
 );
 
 const res =
@@ -5114,58 +5095,52 @@ Waiting Time: {
         }}
       />
 
-      <input
-  type="file"
-  accept="image/*"
-  capture="environment"
-  onChange={(e)=>{
-
-    const file =
-      e.target.files[0];
-
-    if(file){
-
-      setDeliveryPhotos({
-        ...deliveryPhotos,
-        [order._id]:file
-      });
-    }
-  }}
+    <div
   style={{
     marginTop:"10px",
-    width:"100%"
+    marginBottom:"10px",
+    background:"#ecfdf5",
+    border:"1px solid #bbf7d0",
+    color:"#166534",
+    borderRadius:"14px",
+    padding:"12px",
+    fontSize:"13px",
+    fontWeight:"800",
+    lineHeight:"1.5"
   }}
-/>
+>
+  ✅ Ask the customer for the 4-digit delivery code before completing this delivery.
+</div>
 
-      <Button
-        onClick={()=>
+<Button
+  onClick={()=>
 
-          completeDelivery(
-            order._id
-          )
-        }
-        disabled={
-          completingOrderId === order._id ||
-          !deliveryCodes[order._id] ||
-          deliveryCodes[order._id].length !== 4
-        }
-        style={{
-          background:
-            completingOrderId === order._id ||
-            !deliveryCodes[order._id] ||
-            deliveryCodes[order._id].length !== 4
-            ? "#94a3b8"
-            : "linear-gradient(135deg, #16a34a, #22c55e)",
-          color:"white",
-          fontWeight:"900"
-        }}
-      >
-        {
-          completingOrderId === order._id
-          ? "Verifying Code..."
-          : "Complete Delivery"
-        }
-      </Button>
+    completeDelivery(
+      order._id
+    )
+  }
+  disabled={
+    completingOrderId === order._id ||
+    !deliveryCodes[order._id] ||
+    deliveryCodes[order._id].length !== 4
+  }
+  style={{
+    background:
+      completingOrderId === order._id ||
+      !deliveryCodes[order._id] ||
+      deliveryCodes[order._id].length !== 4
+      ? "#94a3b8"
+      : "linear-gradient(135deg, #16a34a, #22c55e)",
+    color:"white",
+    fontWeight:"900"
+  }}
+>
+  {
+    completingOrderId === order._id
+    ? "Verifying Code..."
+    : "Complete Delivery"
+  }
+</Button>
 
     </div>
   )
